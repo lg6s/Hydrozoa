@@ -1,0 +1,153 @@
+﻿/* FONTS */
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+
+/* COLORs */
+/* light = #D8D8D8  */
+/* dark = #181818  */
+html, body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.top{
+    width: 60%;
+    margin: 0 auto;
+    background-color: #181818;
+    text-align: center;
+}
+
+.top h1{
+    color: #fff;
+    font-size: 80px;
+    line-height: 90px;
+    margin: 20px 0px 20px 0px;
+    letter-spacing: 5px;
+    font-weight: 600;
+    -webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+    box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+}
+
+/* SPLASHSCREEN */
+.sscreen{
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    position: fixed;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.sscreen .box{
+    width: 30%;
+    height: 72%;
+    position: absolute;
+    background-color: hsl(0, 0%, 95%);
+    left: 35%;
+    top: 14%;
+    display: block;
+}
+
+.sscreen .box h1{
+    font-size: 50px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 500;
+    color: #181818;
+}
+
+.sscreen .container{
+    width: 80%;
+    height: 75%;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-left: 4px solid #181818;
+    border-right: 4px solid #181818;
+    display: block;
+}
+
+/* CONTAINER */
+
+.container{
+    width: 60%;
+    margin-left: 20%;
+    display: inline-block;
+    position: relative;
+}
+
+.container.actions{
+    background-color: #181818;
+    margin-bottom: 40px;
+    -webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+    box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+}
+
+.container.actions .action{
+    height: 60px;
+    display: block;
+    background-color: #181818;
+    cursor: pointer;
+    width: 50%;
+}
+
+.container.actions .action img{
+    height: 30px;
+    margin-top: 15px;
+    margin-left: calc(50% - 15px);
+}
+
+.container .plan{
+    height: 70px;
+    width: 100%;
+    background-color: #181818;
+    margin-bottom: 15px;
+    display: block;
+    -webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+    box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
+}
+
+.container .plan .status{
+    float: left;
+    height: inherit;
+    width: 10%;
+    background-color: #181818;
+}
+
+.container .plan .status h3{
+    line-height: 70px;
+    text-align: center;
+    color: #fff;
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.container .plan .description{
+    float: left;
+    width: 60%;
+    height: inherit;
+    background-color: #f2f2f2;
+}
+
+.container .plan .description p{
+    line-height: 70px;
+    color: #181818;
+    margin-left: 30px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.container .plan .button{
+    float: left;
+    height: inherit;
+    width: calc(10% - 2px);
+    border-left: 2px solid #fff;
+    cursor: pointer;
+}
+
+.container .plan .button img{
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+}

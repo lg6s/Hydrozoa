@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9E4693A1-C761-4588-B933-53C28457EAB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D2DD49A-1C6E-4C4A-BF67-B642649C05BF}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WAMS", "src\WAMS\WAMS.xproj", "{A21681B9-81D6-4957-97A6-08F9F2762E28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A21681B9-81D6-4957-97A6-08F9F2762E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A21681B9-81D6-4957-97A6-08F9F2762E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A21681B9-81D6-4957-97A6-08F9F2762E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A21681B9-81D6-4957-97A6-08F9F2762E28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A21681B9-81D6-4957-97A6-08F9F2762E28} = {9E4693A1-C761-4588-B933-53C28457EAB7}
+	EndGlobalSection
+EndGlobal

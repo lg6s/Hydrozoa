@@ -1,0 +1,3 @@
+PI:
+    MAC: b8:27:eb:e5:5e:25 / 74:da:38:7e:f7:1b
+    reboot: 95 sek -> 1,5 min
