@@ -3,15 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using WAMS.DataModels;
+using Newtonsoft.Json;
 
 namespace WAMS.Services.PlanManagement
 {
     public static class PlanContainer
     {
+        private static Timer BackupPeriod;
+
         private static bool FirstTime = true;
         private static ILogger _logger { set; get; }
         public static List<Plan> Container { get; set; }
+        public static DataModels.Action ActiveAction { get; set; }
 
         public static void Setup(ILoggerFactory loggerFactory)
         {
@@ -19,10 +24,20 @@ namespace WAMS.Services.PlanManagement
                 _logger = loggerFactory.CreateLogger("PlanContainer");
                 Container = new List<Plan>();
                 FirstTime = false;
+
+                BackupPeriod = new Timer(60000000);
+                BackupPeriod.Elapsed += BackupEvent;
+                BackupPeriod.AutoReset = true;
+                BackupPeriod.Enabled = true;
             }
         }
 
-        public static bool AddPlan(string Name, DateTime StartCondition, uint Duration, List<DataModels.Action> Elements = null)
+        private static void BackupEvent(object sender, ElapsedEventArgs k)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool AddPlan(string Name, UInt16 StartCondition, TimeSpan Duration, List<DataModels.Action> Elements = null)
         {
             if (Container.All(e => !(e.Name.Equals(Name)))) {
                 Container.Add(new Plan() {
@@ -58,5 +73,7 @@ namespace WAMS.Services.PlanManagement
                 Container.Where(e => e.Name.Equals(PlanName)).First().Elements.RemoveAll(e => e.Name.Equals(ActionName));
             }
         }
+
+
     }
 }

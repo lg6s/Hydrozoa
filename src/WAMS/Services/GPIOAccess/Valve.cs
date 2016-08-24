@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 namespace WAMS.Services.GPIOAccess
 {
-    public class Valve : IValve
+    public class Valve : IValve, IDisposable
     {
         protected ILogger _logger { get; }
 
@@ -31,10 +31,19 @@ namespace WAMS.Services.GPIOAccess
         public Task OpenFor(TimeSpan Delay)
         {
             if(Delay.TotalSeconds < 5 || Delay.TotalHours > 6) {
-                Parallel.Invoke(() => Open(), () => Task.Delay(Delay));
+                Parallel.Invoke(
+                    () => Open(),
+                    () => Task.Delay(Delay)
+                );
                 Close();
+                PlanManagement.PlanContainer.ActiveAction = null;
             }else { throw new InvalidDelayException(); }
             return Task.FromResult(0);
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 

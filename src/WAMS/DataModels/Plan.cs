@@ -8,8 +8,8 @@ namespace WAMS.DataModels
     public class Plan
     {
         public string Name { get; set; }
-        public DateTime StartCondition { get; set; } // day of year
-        public uint Duration { get; set; } // days
+        public UInt16 StartCondition { get; set; } // day of year
+        public TimeSpan Duration { get; set; } // days
         public List<Action> Elements { get; set; }
     }
 }

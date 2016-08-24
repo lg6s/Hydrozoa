@@ -10,6 +10,6 @@ namespace WAMS.DataModels
         public string Name { get; set; }
         public DateTime PrimaryCondition { get; set; } // Weekday && Time
         public TimeSpan Duration { get; set; } // min
-        public Int16 SecondaryCondition { get; set; } // humidity
+        public UInt16 SecondaryCondition { get; set; } // humidity
     }
 }
