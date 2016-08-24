@@ -8,14 +8,20 @@ html, body{
     font-family: 'Open Sans', sans-serif;
 }
 
-.top{
+.wrapper{
     width: 60%;
+    margin: 0 auto;
+    min-width: 1100px;
+}
+
+.wrapper .top{
+    width: 100%;
     margin: 0 auto;
     background-color: #181818;
     text-align: center;
 }
 
-.top h1{
+.wrapper .top h1{
     color: #fff;
     font-size: 80px;
     line-height: 90px;
@@ -38,12 +44,14 @@ html, body{
 }
 
 .sscreen .box{
-    width: 30%;
+    width: 34%;
     height: 72%;
     position: absolute;
-    background-color: hsl(0, 0%, 95%);
-    left: 35%;
+    background-color: hsl(0, 0%, 10%);
+    left: 34%;
     top: 14%;
+    margin: 0 auto;
+    min-width: 625px;
     display: block;
 }
 
@@ -51,8 +59,15 @@ html, body{
     font-size: 50px;
     text-align: center;
     margin-top: 20px;
-    font-weight: 500;
-    color: #181818;
+    font-weight: 600;
+    color: #f2f2f2;
+}
+
+.sscreen .box img{
+    float: right;
+    height: 15px;
+    cursor: pointer;
+    margin: 5px 0px 0px 0px;
 }
 
 .sscreen .container{
@@ -60,21 +75,99 @@ html, body{
     height: 75%;
     margin: 0 auto;
     margin-top: 40px;
-    border-left: 4px solid #181818;
-    border-right: 4px solid #181818;
+    border-left: 4px solid #f2f2f2;
+    border-right: 4px solid #f2f2f2;
     display: block;
+}
+
+.sscreen .container input{
+    width: 90%;
+    height: 40px;
+    position: relative;
+    margin-left: 5%;
+    margin-top: 10px;
+    -webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.5);
+    box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.5);
+}
+
+.sscreen .container input[type=text]{
+    background-color: #f2f2f2;
+    color: #181818;
+    outline: none;
+}
+
+.sscreen .container input[type=text]::-webkit-input-placeholder {
+   padding-left: 10px;
+   padding-top: 5px;
+   color: #181818;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 40px;
+}
+
+.sscreen .container .range-wrapper input[type=range]{
+    background-color: hsl(0, 0%, 10%);
+}
+
+.sscreen .container .range-wrapper input[type=range]::-webkit-slider-runnable-track{
+    width: 90%;
+    background-color: #f2f2f2;
+    border: none;
+    height: 40px !important;
+}
+
+.sscreen .container .range-wrapper input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    height: 40px !important;
+    width: 20px;
+    border: none;
+    background: hsl(0, 0%, 5%);
+}
+
+.sscreen .container .range-wrapper input[type=range]:focus::-webkit-slider-runnable-track{
+    background-color: hsl(0, 0%, 90%);
+}
+
+.sscreen .container .range-wrapper{
+    height: 40px;
+    overflow: visible;
+}
+
+.sscreen .container .range-wrapper > .text {
+    pointer-events: none;
+    position: relative;
+    top: -40px;
+    left: 5%;
+    width: 100px;
+    height: 40px;
+}
+
+.sscreen .container .range-wrapper > .text.right {
+    pointer-events: none;
+    position: relative;
+    top: -40px;
+    left: 95%;
+    width: 100px;
+    height: 40px;
+}
+
+.sscreen .container .range-wrapper .text p{
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 10px;
 }
 
 /* CONTAINER */
 
-.container{
-    width: 60%;
-    margin-left: 20%;
+.wrapper .container{
+    width: 100%;
     display: inline-block;
     position: relative;
 }
 
-.container.actions{
+.wrapper .container.actions{
     background-color: #181818;
     margin-bottom: 40px;
     -webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
@@ -82,7 +175,7 @@ html, body{
     box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
 }
 
-.container.actions .action{
+.wrapper .container.actions .action{
     height: 60px;
     display: block;
     background-color: #181818;
@@ -90,13 +183,13 @@ html, body{
     width: 50%;
 }
 
-.container.actions .action img{
+.wrapper .container.actions .action img{
     height: 30px;
     margin-top: 15px;
     margin-left: calc(50% - 15px);
 }
 
-.container .plan{
+.wrapper .container .plan{
     height: 70px;
     width: 100%;
     background-color: #181818;
@@ -107,14 +200,14 @@ html, body{
     box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.25);
 }
 
-.container .plan .status{
+.wrapper .container .plan .status{
     float: left;
     height: inherit;
     width: 10%;
     background-color: #181818;
 }
 
-.container .plan .status h3{
+.wrapper .container .plan .status h3{
     line-height: 70px;
     text-align: center;
     color: #fff;
@@ -122,14 +215,14 @@ html, body{
     font-weight: 600;
 }
 
-.container .plan .description{
+.wrapper .container .plan .description{
     float: left;
     width: 60%;
     height: inherit;
     background-color: #f2f2f2;
 }
 
-.container .plan .description p{
+.wrapper .container .plan .description p{
     line-height: 70px;
     color: #181818;
     margin-left: 30px;
@@ -137,7 +230,7 @@ html, body{
     font-weight: 500;
 }
 
-.container .plan .button{
+.wrapper .container .plan .button{
     float: left;
     height: inherit;
     width: calc(10% - 2px);
@@ -145,7 +238,7 @@ html, body{
     cursor: pointer;
 }
 
-.container .plan .button img{
+.wrapper .container .plan .button img{
     height: 30px;
     display: block;
     margin: 0 auto;
