@@ -8,7 +8,7 @@ namespace WAMS.Services.GPIOAccess
     public interface IValve
     {
         Task Open();
-        Task Close();
+        Task Shut();
         Task OpenFor(TimeSpan Delay);
     }
 }

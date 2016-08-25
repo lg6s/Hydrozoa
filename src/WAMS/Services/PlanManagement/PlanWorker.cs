@@ -10,7 +10,7 @@ namespace WAMS.Services.PlanManagement
     using DataModels;
     using GPIOAccess;
     using static PlanContainer;
-    public class PlanWorker
+    public static class PlanWorker
     {
         private static Timer PlanPeriod;
 
@@ -20,9 +20,9 @@ namespace WAMS.Services.PlanManagement
         private static ILogger _logger { set; get; }
         private static IValve _Valve { get; set; }
 
-        public PlanWorker(ILoggerFactory loggerFactory, IValve Valve)
+        public static void Setup(ILoggerFactory loggerFactory, IValve Valve)
         {
-            _logger = loggerFactory.CreateLogger(GetType().Namespace);
+            _logger = loggerFactory.CreateLogger("PlanWorker");
             _Valve = Valve;
 
             PlanPeriod = new Timer(6000000);
@@ -36,7 +36,7 @@ namespace WAMS.Services.PlanManagement
             ActionPeriod.Enabled = ActivePlans.Count > 0;
         }
 
-        private static void ActionWorkerEvent(object sender, ElapsedEventArgs k)
+        private static void ActionWorkerEvent(Object sender, ElapsedEventArgs k)
         {
             DateTime Now = DateTime.Now;
             Action PlannedAction = ActivePlans.SelectMany(e => e.Elements).Where(e => !(e.Equals(ActiveAction))
@@ -44,23 +44,79 @@ namespace WAMS.Services.PlanManagement
                 && e.PrimaryCondition.Hour <= Now.Hour && e.PrimaryCondition.Hour + e.Duration.TotalHours >= Now.Hour
                 && e.PrimaryCondition.Minute <= Now.Minute && e.PrimaryCondition.Minute + e.Duration.TotalMinutes >= Now.Minute).FirstOrDefault();
 
-            if(PlannedAction != null) {
+            if (PlannedAction != null && ActiveAction == null) {
                 _Valve.OpenFor(PlannedAction.Duration);
                 ActiveAction = PlannedAction;
+            } else {
+                _logger.LogWarning("Collision of two actions emerged, going to notice the user !");
+                APIController.PlanActionController.Warnings.Add(
+                    new Tuple<string, DateTime>("Warnung es gab einen Resourcenkonflikt zweier von ihnen geplanten Aktionen: " + ActiveAction.Name
+                    + ", " + PlannedAction.Name + " | " + DateTime.Now.ToString(), DateTime.Now));
             }
+
+            _logger.LogInformation("ActionWorker Elapsed successfully !");
+        }
+
+        public static bool RemovePlan(string Name)
+        {
+            if (ActivePlans.Any(e => !(e.Name.Equals(Name)))) { return false; } else {
+                ActivePlans.RemoveAll(e => e.Name.Equals(Name));
+
+                if (ActionPeriod.Enabled == true && ActivePlans.Count == 0) {
+                    ActionPeriod.Enabled = false;
+                    _logger.LogInformation("ActionPeriod was deactivated (again), due to the removal of the only active Plan !");
+                }
+
+                return true;
+            }
+        }
+
+        public static bool RemoveAction(string PlanName, string Name)
+        {
+            if (ActivePlans.Any(e => !(e.Name.Equals(PlanName)))) { return false; } else {
+                if (!ActivePlans.Where(e => e.Name.Equals(PlanName)).First().Elements.Any(e => e.Name.Equals(Name)))
+                { return false; }
+
+                ActivePlans.Where(e => e.Name.Equals(PlanName)).First().Elements.RemoveAll(e => e.Name.Equals(Name));
+                ActivePlans.RemoveAll(e => e.Elements.Count == 0);
+
+                if (ActionPeriod.Enabled == true && ActivePlans.Count == 0) {
+                    ActionPeriod.Enabled = false;
+                    _logger.LogInformation("ActionPeriod was deactivated (again), due to the removal of the only active Plan !");
+                }
+
+                return true;
+            }
+        }
+
+        public static bool TogglePlan(string Name)
+        {
+            if (ActivePlans.Any(e => e.Name.Equals(Name))) {
+                ActivePlans.RemoveAll(e => e.Name.Equals(Name));
+            } else if (Container.Any(e => e.Name.Equals(Name))) {
+                ActivePlans.Add(Container.Where(e => e.Name.Equals(Name)).First());
+            } else { return false; }
+            return true;
         }
 
         private static void PlanWorkerEvent(Object source, ElapsedEventArgs k)
         {
             ActivePlans.AddRange(Container.Where(e =>
-                e.StartCondition <= DateTime.Now.DayOfYear &&
-                (e.StartCondition + e.Duration.Days) >= DateTime.Now.DayOfYear));
+                e.StartCondition <= DateTime.Now.DayOfYear
+                && (e.StartCondition + e.Duration.Days) >= DateTime.Now.DayOfYear
+                && e.Elements.Count > 0)); // warn the user that plans don't get activated when they have no actions
 
             ActivePlans.RemoveAll(e => (e.StartCondition + e.Duration.Days) < DateTime.Now.DayOfYear);
 
-            if (ActionPeriod.Enabled == true && ActivePlans.Count == 0) { ActionPeriod.Enabled = false; }
-            else if (ActionPeriod.Enabled == false && ActivePlans.Count > 0) { ActionPeriod.Enabled = true; }
+            if (ActionPeriod.Enabled == true && ActivePlans.Count == 0) {
+                ActionPeriod.Enabled = false;
+                _logger.LogInformation("ActionPeriod was deactivated (again), because no active plans were found !");
+            }else if (ActionPeriod.Enabled == false && ActivePlans.Count > 0) {
+                ActionPeriod.Enabled = true;
+                _logger.LogInformation("ActionPeriod was activated(again), due to a new plan being active !");
+            }
 
+            _logger.LogInformation("PlanWorker Elapsed successfully !");
         }
     }
 }

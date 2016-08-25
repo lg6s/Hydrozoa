@@ -9,6 +9,7 @@ namespace WAMS.Services.GPIOAccess
 {
     public class Valve : IValve, IDisposable
     {
+        public static bool IsOpen { get; set; }
         protected ILogger _logger { get; }
 
         public Valve(ILoggerFactory loggerFactory)
@@ -18,13 +19,19 @@ namespace WAMS.Services.GPIOAccess
 
         public Task Open()
         {
-            _logger.LogInformation("Valve was successfully opened");
+            if (!IsOpen) {
+                _logger.LogInformation("Valve was successfully opened !");
+                IsOpen = true;
+            } else { _logger.LogWarning("Valve couldn't be opened, it's already open !"); }
             return Task.FromResult(0);
         }
 
-        public Task Close()
+        public Task Shut()
         {
-            _logger.LogInformation("Valve was successfully closed");
+            if (IsOpen) {
+                _logger.LogInformation("Valve was successfully shut");
+                IsOpen = false;
+            } else { _logger.LogWarning("Valve couldn't be shut, it's already shut !"); }
             return Task.FromResult(0);
         }
 
@@ -35,7 +42,7 @@ namespace WAMS.Services.GPIOAccess
                     () => Open(),
                     () => Task.Delay(Delay)
                 );
-                Close();
+                Shut();
                 PlanManagement.PlanContainer.ActiveAction = null;
             }else { throw new InvalidDelayException(); }
             return Task.FromResult(0);

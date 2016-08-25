@@ -9,7 +9,6 @@ namespace WAMS.Controllers
 {
     public class PrimaryController : Controller
     {
-        public static List<string> Warnings = new List<string>();
         protected ILogger _logger { get; }
 
         public PrimaryController(ILoggerFactory loggerFactory)

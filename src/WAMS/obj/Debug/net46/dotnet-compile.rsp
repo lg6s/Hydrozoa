@@ -211,6 +211,8 @@
 --resource:"C:\Users\Max\Desktop\WAMS\src\WAMS\obj\Debug\net46\WAMSdotnet-compile.deps.json",WAMS.deps.json
 C:\Users\Max\Desktop\WAMS\src\WAMS\Program.cs
 C:\Users\Max\Desktop\WAMS\src\WAMS\Startup.cs
+C:\Users\Max\Desktop\WAMS\src\WAMS\APIController\PlanActionController.cs
+C:\Users\Max\Desktop\WAMS\src\WAMS\APIController\SystemInformationController.cs
 C:\Users\Max\Desktop\WAMS\src\WAMS\Controllers\PrimaryController.cs
 C:\Users\Max\Desktop\WAMS\src\WAMS\DataModels\Action.cs
 C:\Users\Max\Desktop\WAMS\src\WAMS\DataModels\Plan.cs

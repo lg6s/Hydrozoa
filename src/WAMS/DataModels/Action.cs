@@ -8,8 +8,9 @@ namespace WAMS.DataModels
     public class Action
     {
         public string Name { get; set; }
-        public DateTime PrimaryCondition { get; set; } // Weekday && Time
+        public string PlanName { get; set; }
         public TimeSpan Duration { get; set; } // min
+        public DateTime PrimaryCondition { get; set; } // Weekday && Time
         public UInt16 SecondaryCondition { get; set; } // humidity
     }
 }

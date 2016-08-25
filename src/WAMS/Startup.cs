@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using WAMS.Services.GPIOAccess;
+using WAMS.Services.PlanManagement;
 
 namespace WAMS
 {
@@ -37,7 +38,7 @@ namespace WAMS
             services.AddTransient<IValve, Valve>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IValve Valve)
         {
             // Logging Setup
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -46,6 +47,10 @@ namespace WAMS
             // NLog Setup
             loggerFactory.AddNLog();
             env.ConfigureNLog("nlog.config");
+
+            // Plan* Setup
+            PlanContainer.Setup(loggerFactory, Valve);
+            PlanWorker.Setup(loggerFactory, Valve);
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
