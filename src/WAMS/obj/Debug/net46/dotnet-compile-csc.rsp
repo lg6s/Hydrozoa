@@ -10,7 +10,6 @@
 -nologo
 "C:\Users\Max\Desktop\WAMS\src\WAMS\obj\Debug\net46\dotnet-compile.assemblyinfo.cs"
 -out:"C:\Users\Max\Desktop\WAMS\src\WAMS\bin\Debug\net46\WAMS.exe"
--r:"C:\Users\Max\.nuget\packages\BundlerMinifier.Core\2.2.281\lib\net452\dotnet-bundle.exe"
 -r:"C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.Client\5.2.2\lib\net45\System.Net.Http.Formatting.dll"
 -r:"C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Antiforgery\1.0.0\lib\net451\Microsoft.AspNetCore.Antiforgery.dll"
 -r:"C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Authorization\1.0.0\lib\net451\Microsoft.AspNetCore.Authorization.dll"
@@ -111,7 +110,6 @@
 -r:"C:\Users\Max\.nuget\packages\NuGet.Repositories\3.5.0-beta2-1484\lib\net45\NuGet.Repositories.dll"
 -r:"C:\Users\Max\.nuget\packages\NuGet.RuntimeModel\3.5.0-beta2-1484\lib\net45\NuGet.RuntimeModel.dll"
 -r:"C:\Users\Max\.nuget\packages\NuGet.Versioning\3.5.0-beta2-1484\lib\net45\NuGet.Versioning.dll"
--r:"C:\Users\Max\.nuget\packages\NUglify\1.5.1\lib\net40\NUglify.dll"
 -r:"C:\Users\Max\.nuget\packages\Raspberry.IO.Extended\1.0.0-alpha3\lib\Raspberry.IO.Extended.dll"
 -r:"C:\Users\Max\.nuget\packages\Raspberry.IO.GeneralPurpose\2.4.0\lib\net40\Raspberry.IO.GeneralPurpose.dll"
 -r:"C:\Users\Max\.nuget\packages\Raspberry.IO.GeneralPurpose\2.4.0\lib\net40\Raspberry.IO.Interop.dll"

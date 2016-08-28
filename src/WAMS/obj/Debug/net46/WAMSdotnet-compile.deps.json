@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETFramework,Version=v4.6/",
-    "signature": "b103e773a1771de3c0c507da1a2dd2351c01515b"
+    "signature": "17a2daad394a1c67a8e7fda730f8a841fc369922"
   },
   "compilationOptions": {
     "defines": [
@@ -40,22 +40,10 @@
           "Raspberry.IO.GeneralPurpose": "2.4.0",
           "Raspberry.IO.Extended": "1.0.0-alpha3",
           "Raspberry.System": "2.1.0",
-          "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0",
-          "BundlerMinifier.Core": "2.2.281",
-          "BuildBundlerMinifier": "2.2.281"
+          "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0"
         },
         "compile": {
           "WAMS.exe": {}
-        }
-      },
-      "BuildBundlerMinifier/2.2.281": {},
-      "BundlerMinifier.Core/2.2.281": {
-        "dependencies": {
-          "NUglify": "1.5.1",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "lib/net452/dotnet-bundle.exe": {}
         }
       },
       "Libuv/1.9.0": {
@@ -1087,17 +1075,6 @@
           "lib/net451/NLog.Web.AspNetCore.dll": {}
         }
       },
-      "NUglify/1.5.1": {
-        "dependencies": {
-          "System": "4.0.0.0",
-          "System.Core": "4.0.0.0",
-          "System.Xml": "4.0.0.0",
-          "mscorlib": "4.0.0.0"
-        },
-        "compile": {
-          "lib/net40/NUglify.dll": {}
-        }
-      },
       "Raspberry.IO.Extended/1.0.0-alpha3": {
         "dependencies": {
           "Raspberry.IO.GeneralPurpose": "2.4.0",
@@ -1714,22 +1691,10 @@
           "Raspberry.IO.GeneralPurpose": "2.4.0",
           "Raspberry.IO.Extended": "1.0.0-alpha3",
           "Raspberry.System": "2.1.0",
-          "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0",
-          "BundlerMinifier.Core": "2.2.281",
-          "BuildBundlerMinifier": "2.2.281"
+          "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0"
         },
         "runtime": {
           "WAMS.exe": {}
-        }
-      },
-      "BuildBundlerMinifier/2.2.281": {},
-      "BundlerMinifier.Core/2.2.281": {
-        "dependencies": {
-          "NUglify": "1.5.1",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "runtime": {
-          "lib/net452/dotnet-bundle.exe": {}
         }
       },
       "Libuv/1.9.0": {
@@ -2749,17 +2714,6 @@
           "lib/net451/NLog.Web.AspNetCore.dll": {}
         }
       },
-      "NUglify/1.5.1": {
-        "dependencies": {
-          "System": "4.0.0.0",
-          "System.Core": "4.0.0.0",
-          "System.Xml": "4.0.0.0",
-          "mscorlib": "4.0.0.0"
-        },
-        "runtime": {
-          "lib/net40/NUglify.dll": {}
-        }
-      },
       "Raspberry.IO.Extended/1.0.0-alpha3": {
         "dependencies": {
           "Raspberry.IO.GeneralPurpose": "2.4.0",
@@ -3098,16 +3052,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "BuildBundlerMinifier/2.2.281": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-p8ZViKOXTuu3eWiGS1wqSofCnZ/x5SxYEAsK7hsLNZl7c0jNxcxKJti1jWP2GMa0ILYREPKKVdLb7DHEqT0TpA=="
-    },
-    "BundlerMinifier.Core/2.2.281": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-cUiOJT4rjubD9tOsLo0ruPqfLEy5GUByj9JZ2fVlU5uR4QYTIN//BpeQfsmBwIU/GWrpVJqYsyX474Bm0U3XHQ=="
     },
     "Libuv/1.9.0": {
       "type": "package",
@@ -3588,11 +3532,6 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-8Hmob6033iyBqV0kkEuSlfAFrY23SA3i7gS470LonO+Y2xdqswo3x+9wtgVAFcC6V7Ux2jmO+RPpFr/4NBHZAA=="
-    },
-    "NUglify/1.5.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-iYV/OtSs+HgyE/RilY7UvGXYec6r0OJenWlPIdX/IivedVpSSdzxvPvUIyWpiV/6ad7VjantH0/6oaOhAZbaoQ=="
     },
     "Raspberry.IO.Extended/1.0.0-alpha3": {
       "type": "package",

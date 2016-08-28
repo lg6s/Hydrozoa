@@ -1,4 +1,4 @@
-/// <binding />
+/// <binding AfterBuild='min' Clean='min' ProjectOpened='min' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -10,14 +10,14 @@ var paths = {
 };
 
 paths.js = paths.webroot + "js/**/*.js";
-paths.minJs = paths.webroot + "js/**/*.min.js";
+paths.minJs = paths.webroot + "min/js";
 paths.css = paths.webroot + "css/**/*.css";
-paths.minCss = paths.webroot + "css/**/*.min.css";
+paths.minCss = paths.webroot + "min/css";
 
 gulp.task("min:js", function () {
-  return gulp.src([paths.js, "!" + paths.minJs], { base: "." })
+  return gulp.src([paths.js, "!" + paths.minJs])
     .pipe(minifyJS())
-    .pipe(gulp.dest("."));
+    .pipe(gulp.dest(paths.minJs));
 });
 
 gulp.task("min:css", function () {
