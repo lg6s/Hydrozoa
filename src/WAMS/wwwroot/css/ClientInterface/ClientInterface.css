@@ -85,21 +85,24 @@ html, body{
     height: 40px;
     position: relative;
     margin-left: 5%;
-    margin-top: 10px;
     -webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.5);
     box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.5);
 }
 
 .sscreen .container input[type=text]{
+    -webkit-appearance: none;
     background-color: #f2f2f2;
+    margin-top: 10px;
     color: #181818;
     outline: none;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: 400;
 }
 
-.sscreen .container input[type=text]::-webkit-input-placeholder {
-   padding-left: 10px;
-   padding-top: 5px;
+.sscreen .container input[type=text]::-webkit-input-placeholder { /* DOES NEED WORK !! */
+   font-family: 'Open Sans', sans-serif;
    color: #181818;
    font-size: 20px;
    font-weight: 400;
@@ -122,6 +125,7 @@ html, body{
     height: 40px !important;
     width: 20px;
     border: none;
+    opacity: .8;
     background: hsl(0, 0%, 5%);
 }
 
@@ -130,37 +134,44 @@ html, body{
 }
 
 .sscreen .container .range-wrapper{
+    margin-top: 10px;
     height: 40px;
     overflow: visible;
 }
 
-.sscreen .container .range-wrapper > .text {
+.sscreen .container .range-wrapper > .tleft {
     pointer-events: none;
     position: relative;
-    top: -40px;
+    top: -42px;
     left: 5%;
-    width: 100px;
+    width: 120px;
     height: 40px;
-}
-
-.sscreen .container .range-wrapper > .text.right {
-    pointer-events: none;
-    position: relative;
-    top: -40px;
-    left: 95%;
-    width: 100px;
-    height: 40px;
-}
-
-.sscreen .container .range-wrapper .text p{
-    line-height: 40px;
-    font-size: 20px;
-    font-weight: 400;
     margin-left: 10px;
 }
 
-/* CONTAINER */
+.sscreen .container .range-wrapper > .tright {
+    pointer-events: none;
+    position: relative;
+    top: -82px;
+    left: 87%;
+    width: 100px;
+    height: 40px;
+    margin-right: 10px;
+}
 
+.sscreen .container .range-wrapper .tleft p{
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.sscreen .container .range-wrapper .tright p{
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+/* CONTAINER */
 .wrapper .container{
     width: 100%;
     display: inline-block;

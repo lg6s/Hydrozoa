@@ -26,9 +26,14 @@
         <div class="container">
             <input type="text" placeholder="Name" />
             <div class="range-wrapper">
-                <input type="range" min="1" max="365"/>
-                <div class="text"><p>Start Tag</p></div>
-                <div class="text right"><p>000</p></div>
+                <input type="range" name="SDR" min="1" max="365" onchange="javascript: DisplayRangeValue('SDRD');"/>
+                <div class="tleft"><p>Start Tag</p></div>
+                <div class="tright"><p id="SDRD"></p></div>
+            </div>
+            <div class="range-wrapper">
+                <input type="range" name="DR" min="1" max="365" onchange="javascript: DisplayRangeValue('DRD');"/>
+                <div class="tleft"><p>Aktive Tage</p></div>
+                <div class="tright"><p id="DRD"></p></div>
             </div>
         </div>
     </div>

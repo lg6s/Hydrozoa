@@ -1,8 +1,13 @@
-// API Section
+// Animations
 function toggle_sscreen(t) {
-    $(t).css("display", function (t, e) { return "none" === e ? "initial" : "none" })
+    $(t).css("display", function (t, e) { return "none" === e ? "initial" : "none" });
 }
 
+function DisplayRangeValue(t) {
+    document.getElementById(t).textContent = $('input[name=SDR]').val();
+}
+
+// API Section
 function AddPlan(t, e, a) {
     $.ajax({ method: "PUT", url: RequestUrls[1] + "AddPlan", data: { NewPlan: new PlanTemplate(t, e, a) }, complete: function (t) { }, dataType: "json" })
 }
@@ -39,6 +44,12 @@ function GetSystemStatus() {
     $.ajax({ method: "Get", url: RequestUrls[0] + "GetSystemStatus", data: {}, complete: function (t) { alert("Not Implemented !") }, dataType: "json" })
 }
 
+// GP functions
+function SetDefaultValues() {
+    document.getElementById('SDRD').textContent = 182;
+    document.getElementById('DRD').textContent = 182;
+}
+
 // Objects
 function PlanTemplate(t, e, a) {
     this.Name = t, this.StartCondition = e, this.Duration = a
@@ -58,11 +69,12 @@ function PlansData(t) {
 
 // Events
 $(document).ready(function () {
-    localStorage.hasOwnProperty("Plans") ? (Plans = JSON.parse(localStorage.getItem("Plans")), localStorage.clear(), Date.now() - Plans.Created >= 6e4 && GetAllPlans()) : GetAllPlans()
+    //localStorage.hasOwnProperty("Plans") ? (Plans = JSON.parse(localStorage.getItem("Plans")), localStorage.clear(), Date.now() - Plans.Created >= 6e4 && GetAllPlans()) : GetAllPlans()
+    SetDefaultValues();
 });
 
 $(window).unload(function () {
-
+    //localStorage.setItem('Plans', JSON.stringify(Plans));
 });
 
 // var
