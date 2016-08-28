@@ -14,11 +14,11 @@ namespace WAMS.Services.PlanManagement
 {
     public static class PlanContainer
     {
-        private static string BackupPath;
-
         private static Timer BackupPeriod;
 
         private static bool FirstTime = true;
+
+        private static string[] BackupPath = new string[2];
 
         private static ILogger _logger { set; get; }
         private static IValve Valve { get; set; }
@@ -28,12 +28,12 @@ namespace WAMS.Services.PlanManagement
         public static void Setup(ILoggerFactory loggerFactory, IValve _Valve)
         {
             if (FirstTime) {
-                _logger = loggerFactory.CreateLogger("PlanContainer");
+                _logger = loggerFactory.CreateLogger("WAMS.PlanContainer");
                 FirstTime = false;
                 Valve = _Valve;
                 LoadBackup();
 
-                BackupPeriod = new Timer(60000000);
+                BackupPeriod = new Timer(61000000);
                 BackupPeriod.Elapsed += BackupEvent;
                 BackupPeriod.AutoReset = true;
                 BackupPeriod.Enabled = true;
@@ -45,8 +45,9 @@ namespace WAMS.Services.PlanManagement
             string Backup = JsonConvert.SerializeObject(Container, Formatting.Indented);
 
             try {
-                if (File.Exists(BackupPath)) { File.Delete(BackupPath); }
-                using (FileStream Fs = File.Create(BackupPath)) {
+                if (!Directory.Exists(BackupPath[0])) { Directory.CreateDirectory(BackupPath[0]); }
+                if (File.Exists(BackupPath[1])) { File.Delete(BackupPath[1]); }
+                using (FileStream Fs = File.Create(BackupPath[1])) {
                     byte[] data = new UTF8Encoding(true).GetBytes(Backup);
                     Fs.Write(data, 0, data.Length);
                 }
@@ -56,9 +57,11 @@ namespace WAMS.Services.PlanManagement
         private static void LoadBackup()
         {
             try {
-                BackupPath = string.Concat(AppDomain.CurrentDomain.BaseDirectory, "/PlanBackup/file.bkp");
-                if (!File.Exists(BackupPath)) { Container = new List<Plan>(); return; } else {
-                    using (FileStream Fs = new FileStream(BackupPath, FileMode.Open, FileAccess.Read)) {
+                BackupPath[0] = string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Backups\\");
+                BackupPath[1] = string.Concat(BackupPath[0], "bkp-file.json");
+
+                if (!File.Exists(BackupPath[1])) { Container = new List<Plan>(); return; } else {
+                    using (FileStream Fs = new FileStream(BackupPath[1], FileMode.Open, FileAccess.Read)) {
                         byte[] data = new byte[Fs.Length];
                         int ToRead = (int)Fs.Length;
                         int Read = 0;

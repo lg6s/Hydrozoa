@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -10,8 +11,8 @@ using WAMS.Services.PlanManagement;
 
 namespace WAMS.APIController
 {
-    [Route("api/[controller]")]
-    public class PlanActionController : Controller
+    [Route("api/PlanAction")]
+    public class PlanActionController : ApiController
     {
         public static List<Tuple<string, DateTime>> Warnings = new List<Tuple<string, DateTime>>();
         protected ILogger _logger { get; }
@@ -54,7 +55,15 @@ namespace WAMS.APIController
             if (r1 && r2) { return Ok(); } else { return BadRequest(); }
         }
 
-
+        // GET api/GetAllPlans
+        [HttpGet]
+        [Route("api/SystemInformation/GetAllPlans")]
+        public string GetAllPlans()
+        {
+            List<PlanWrapper> Package = new List<PlanWrapper>(PlanContainer.Container.Count);
+            foreach(Plan p in PlanContainer.Container) { Package.Add(new PlanWrapper() { Active = p.IsActive(), Content = p }); }
+            return JsonConvert.SerializeObject(Package);
+        }
 
         // PUT api/AddAction/ActionTemplate
         [HttpPut]
@@ -71,7 +80,7 @@ namespace WAMS.APIController
             if (Result) { return Ok(); } else { return BadRequest(); }
         }
 
-        // DELETE api/DeleteAction/
+        // DELETE api/DeleteAction/DeleteActionTemplate
         [HttpDelete]
         public IActionResult DeleteAction(DeleteActionTemplate Action)
         {
@@ -106,5 +115,11 @@ namespace WAMS.APIController
     {
         public string Name { get; set; }
         public string PlanName { get; set; }
+    }
+
+    public class PlanWrapper
+    {
+        public bool Active { get; set; }
+        public Plan Content { get; set; }
     }
 }

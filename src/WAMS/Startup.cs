@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using WAMS.Services.GPIOAccess;
 using WAMS.Services.PlanManagement;
+using WAMS.Services;
 
 namespace WAMS
 {
@@ -47,6 +48,7 @@ namespace WAMS
             // NLog Setup
             loggerFactory.AddNLog();
             env.ConfigureNLog("nlog.config");
+            LogManagement.Setup(loggerFactory, env);
 
             // Plan* Setup
             PlanContainer.Setup(loggerFactory, Valve);

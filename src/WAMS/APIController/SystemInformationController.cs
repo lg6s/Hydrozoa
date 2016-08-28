@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using WAMS.Services.GPIOAccess;
+using System.Web.Http;
 
 namespace WAMS.APIController
 {
-    [Route("api/[controller]")]
-    public class SystemInformationController : Controller
+    [Route("api/SystemInformation")]
+    public class SystemInformationController : ApiController
     {
         public static List<Tuple<string, DateTime>> Warnings = new List<Tuple<string, DateTime>>();
         protected ILogger _logger { get; }

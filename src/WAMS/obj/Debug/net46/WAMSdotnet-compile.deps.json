@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETFramework,Version=v4.6/",
-    "signature": "3b98f9599272bd510c1f8b713ddd9588643e20a2"
+    "signature": "b103e773a1771de3c0c507da1a2dd2351c01515b"
   },
   "compilationOptions": {
     "defines": [
@@ -39,15 +39,37 @@
           "NLog.Schema": "4.3.7",
           "Raspberry.IO.GeneralPurpose": "2.4.0",
           "Raspberry.IO.Extended": "1.0.0-alpha3",
-          "Raspberry.System": "2.1.0"
+          "Raspberry.System": "2.1.0",
+          "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0",
+          "BundlerMinifier.Core": "2.2.281",
+          "BuildBundlerMinifier": "2.2.281"
         },
         "compile": {
           "WAMS.exe": {}
         }
       },
+      "BuildBundlerMinifier/2.2.281": {},
+      "BundlerMinifier.Core/2.2.281": {
+        "dependencies": {
+          "NUglify": "1.5.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/net452/dotnet-bundle.exe": {}
+        }
+      },
       "Libuv/1.9.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.0.1"
+        }
+      },
+      "Microsoft.AspNet.WebApi.Client/5.2.2": {
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1",
+          "System.Net.Http": "4.0.0.0"
+        },
+        "compile": {
+          "lib/net45/System.Net.Http.Formatting.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/1.0.0": {
@@ -402,6 +424,20 @@
         },
         "compile": {
           "lib/net451/Microsoft.AspNetCore.Mvc.ViewFeatures.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.WebApiCompatShim/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": "5.2.2",
+          "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0",
+          "Microsoft.AspNetCore.WebUtilities": "1.0.0",
+          "System.Net.Http": "4.0.0.0",
+          "System.Runtime.Serialization": "4.0.0.0",
+          "System.Xml": "4.0.0.0"
+        },
+        "compile": {
+          "lib/net451/Microsoft.AspNetCore.Mvc.WebApiCompatShim.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor/1.0.0": {
@@ -1051,6 +1087,17 @@
           "lib/net451/NLog.Web.AspNetCore.dll": {}
         }
       },
+      "NUglify/1.5.1": {
+        "dependencies": {
+          "System": "4.0.0.0",
+          "System.Core": "4.0.0.0",
+          "System.Xml": "4.0.0.0",
+          "mscorlib": "4.0.0.0"
+        },
+        "compile": {
+          "lib/net40/NUglify.dll": {}
+        }
+      },
       "Raspberry.IO.Extended/1.0.0-alpha3": {
         "dependencies": {
           "Raspberry.IO.GeneralPurpose": "2.4.0",
@@ -1565,6 +1612,11 @@
           ".NETFramework/v4.6/System.Core.dll": {}
         }
       },
+      "System.Net.Http/4.0.0.0": {
+        "compile": {
+          ".NETFramework/v4.6/System.Net.Http.dll": {}
+        }
+      },
       "System.Security/4.0.0.0": {
         "compile": {
           ".NETFramework/v4.6/System.Security.dll": {}
@@ -1585,6 +1637,11 @@
           ".NETFramework/v4.6/System.ComponentModel.DataAnnotations.dll": {}
         }
       },
+      "System.Runtime.Serialization/4.0.0.0": {
+        "compile": {
+          ".NETFramework/v4.6/System.Runtime.Serialization.dll": {}
+        }
+      },
       "System.Configuration/4.0.0.0": {
         "compile": {
           ".NETFramework/v4.6/System.Configuration.dll": {}
@@ -1600,11 +1657,6 @@
           ".NETFramework/v4.6/System.IO.Compression.dll": {}
         }
       },
-      "System.Runtime.Serialization/4.0.0.0": {
-        "compile": {
-          ".NETFramework/v4.6/System.Runtime.Serialization.dll": {}
-        }
-      },
       "System.ServiceModel/4.0.0.0": {
         "compile": {
           ".NETFramework/v4.6/System.ServiceModel.dll": {}
@@ -1618,11 +1670,6 @@
       "System.Xml.Serialization/4.0.0.0": {
         "compile": {
           ".NETFramework/v4.6/System.Xml.Serialization.dll": {}
-        }
-      },
-      "System.Net.Http/4.0.0.0": {
-        "compile": {
-          ".NETFramework/v4.6/System.Net.Http.dll": {}
         }
       },
       "System.IdentityModel/4.0.0.0": {
@@ -1666,15 +1713,37 @@
           "NLog.Schema": "4.3.7",
           "Raspberry.IO.GeneralPurpose": "2.4.0",
           "Raspberry.IO.Extended": "1.0.0-alpha3",
-          "Raspberry.System": "2.1.0"
+          "Raspberry.System": "2.1.0",
+          "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0",
+          "BundlerMinifier.Core": "2.2.281",
+          "BuildBundlerMinifier": "2.2.281"
         },
         "runtime": {
           "WAMS.exe": {}
         }
       },
+      "BuildBundlerMinifier/2.2.281": {},
+      "BundlerMinifier.Core/2.2.281": {
+        "dependencies": {
+          "NUglify": "1.5.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "runtime": {
+          "lib/net452/dotnet-bundle.exe": {}
+        }
+      },
       "Libuv/1.9.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.0.1"
+        }
+      },
+      "Microsoft.AspNet.WebApi.Client/5.2.2": {
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1",
+          "System.Net.Http": "4.0.0.0"
+        },
+        "runtime": {
+          "lib/net45/System.Net.Http.Formatting.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/1.0.0": {
@@ -2029,6 +2098,20 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNetCore.Mvc.ViewFeatures.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.WebApiCompatShim/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Client": "5.2.2",
+          "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0",
+          "Microsoft.AspNetCore.WebUtilities": "1.0.0",
+          "System.Net.Http": "4.0.0.0",
+          "System.Runtime.Serialization": "4.0.0.0",
+          "System.Xml": "4.0.0.0"
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNetCore.Mvc.WebApiCompatShim.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor/1.0.0": {
@@ -2666,6 +2749,17 @@
           "lib/net451/NLog.Web.AspNetCore.dll": {}
         }
       },
+      "NUglify/1.5.1": {
+        "dependencies": {
+          "System": "4.0.0.0",
+          "System.Core": "4.0.0.0",
+          "System.Xml": "4.0.0.0",
+          "mscorlib": "4.0.0.0"
+        },
+        "runtime": {
+          "lib/net40/NUglify.dll": {}
+        }
+      },
       "Raspberry.IO.Extended/1.0.0-alpha3": {
         "dependencies": {
           "Raspberry.IO.GeneralPurpose": "2.4.0",
@@ -2982,18 +3076,18 @@
       "mscorlib/4.0.0.0": {},
       "System/4.0.0.0": {},
       "System.Core/4.0.0.0": {},
+      "System.Net.Http/4.0.0.0": {},
       "System.Security/4.0.0.0": {},
       "System.Xml/4.0.0.0": {},
       "System.Xml.Linq/4.0.0.0": {},
       "System.ComponentModel.DataAnnotations/4.0.0.0": {},
+      "System.Runtime.Serialization/4.0.0.0": {},
       "System.Configuration/4.0.0.0": {},
       "System.Data/4.0.0.0": {},
       "System.IO.Compression/4.0.0.0": {},
-      "System.Runtime.Serialization/4.0.0.0": {},
       "System.ServiceModel/4.0.0.0": {},
       "System.Transactions/4.0.0.0": {},
       "System.Xml.Serialization/4.0.0.0": {},
-      "System.Net.Http/4.0.0.0": {},
       "System.IdentityModel/4.0.0.0": {},
       "System.Net.Http.WebRequest/4.0.0.0": {},
       "System.Numerics/4.0.0.0": {}
@@ -3005,10 +3099,25 @@
       "serviceable": false,
       "sha512": ""
     },
+    "BuildBundlerMinifier/2.2.281": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-p8ZViKOXTuu3eWiGS1wqSofCnZ/x5SxYEAsK7hsLNZl7c0jNxcxKJti1jWP2GMa0ILYREPKKVdLb7DHEqT0TpA=="
+    },
+    "BundlerMinifier.Core/2.2.281": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cUiOJT4rjubD9tOsLo0ruPqfLEy5GUByj9JZ2fVlU5uR4QYTIN//BpeQfsmBwIU/GWrpVJqYsyX474Bm0U3XHQ=="
+    },
     "Libuv/1.9.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-9Q7AaqtQhS8JDSIvRBt6ODSLWDBI4c8YxNxyCQemWebBFUtBbc6M5Vi5Gz1ZyIUlTW3rZK9bIr5gnVyv0z7a2Q=="
+    },
+    "Microsoft.AspNet.WebApi.Client/5.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YVq+s0WeXrPxJk57CoElbtMYf95j76uJcW6nue3Cs4eIer9sgUp4rasSo0gALX3ls1Zf2jMceOLik9X/sJyrwA=="
     },
     "Microsoft.AspNetCore.Antiforgery/1.0.0": {
       "type": "package",
@@ -3164,6 +3273,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-DNMCqY+TX5jgO3M1C7Lf5E61llWZ+QgtjLYfrIkq7yfZjhzI52nprFE3mh66HahKU1EvyOz9+ISdaSmTimfNbQ=="
+    },
+    "Microsoft.AspNetCore.Mvc.WebApiCompatShim/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Z2Og03qmBTR1G3yIfn1aEDdcZhgCm0QpAnEXkXqH5wFz0gxo60Kk8kOxalqEGb0Ef2CIRHUKJEzMDSoEmgnGAA=="
     },
     "Microsoft.AspNetCore.Razor/1.0.0": {
       "type": "package",
@@ -3474,6 +3588,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-8Hmob6033iyBqV0kkEuSlfAFrY23SA3i7gS470LonO+Y2xdqswo3x+9wtgVAFcC6V7Ux2jmO+RPpFr/4NBHZAA=="
+    },
+    "NUglify/1.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iYV/OtSs+HgyE/RilY7UvGXYec6r0OJenWlPIdX/IivedVpSSdzxvPvUIyWpiV/6ad7VjantH0/6oaOhAZbaoQ=="
     },
     "Raspberry.IO.Extended/1.0.0-alpha3": {
       "type": "package",
@@ -3905,6 +4024,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "System.Net.Http/4.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
     "System.Security/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -3925,6 +4049,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "System.Runtime.Serialization/4.0.0.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
     "System.Configuration/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -3940,11 +4069,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Runtime.Serialization/4.0.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
     "System.ServiceModel/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
@@ -3956,11 +4080,6 @@
       "sha512": ""
     },
     "System.Xml.Serialization/4.0.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "System.Net.Http/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

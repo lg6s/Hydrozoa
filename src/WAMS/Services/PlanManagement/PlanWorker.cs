@@ -16,16 +16,18 @@ namespace WAMS.Services.PlanManagement
 
         private static Timer ActionPeriod;
 
+        private static bool SetupRun = true;
+
         private static List<Plan> ActivePlans = new List<Plan>();
         private static ILogger _logger { set; get; }
         private static IValve _Valve { get; set; }
 
         public static void Setup(ILoggerFactory loggerFactory, IValve Valve)
         {
-            _logger = loggerFactory.CreateLogger("PlanWorker");
+            _logger = loggerFactory.CreateLogger("WAMS.PlanWorker");
             _Valve = Valve;
 
-            PlanPeriod = new Timer(6000000);
+            PlanPeriod = new Timer(60000);
             PlanPeriod.AutoReset = true;
             PlanPeriod.Elapsed += PlanWorkerEvent;
             PlanPeriod.Enabled = true;
@@ -89,6 +91,8 @@ namespace WAMS.Services.PlanManagement
             }
         }
 
+        public static bool IsActive(this Plan p) { return ActivePlans.Any(e => e.Equals(p)); }
+
         public static bool TogglePlan(string Name)
         {
             if (ActivePlans.Any(e => e.Name.Equals(Name))) {
@@ -116,6 +120,7 @@ namespace WAMS.Services.PlanManagement
                 _logger.LogInformation("ActionPeriod was activated(again), due to a new plan being active !");
             }
 
+            if (SetupRun) { PlanPeriod.Interval = 60000000; SetupRun = false; }
             _logger.LogInformation("PlanWorker Elapsed successfully !");
         }
     }
