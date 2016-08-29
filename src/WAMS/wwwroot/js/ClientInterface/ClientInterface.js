@@ -1,10 +1,47 @@
+// Events
+$(document).ready(function () {
+    //localStorage.hasOwnProperty("Plans") ? (Plans = JSON.parse(localStorage.getItem("Plans")), localStorage.clear(), Date.now() - Plans.Created >= 6e4 && GetAllPlans()) : GetAllPlans()
+    CenterContainer();
+});
+
+$(window).resize(function () { CenterContainer(); });
+
+$(window).unload(function () {
+    //localStorage.setItem('Plans', JSON.stringify(Plans));
+});
+
+// var
+var p, Plans, System, RequestUrls = ["/../api/SystemInformation/", "/../api/PlanAction/"], SSBID = ['#SSB0', '#SSB1', '#SSB2'];
+
+// GP functions
+function ProcessNPForm() {
+    p = $('input[name=NPN]').val()
+    if (p.length < 5 || p == null) { DisplayFormException('NPFI', 'Der Name muss länger als 4 Zeichen lang sein!') }
+    else { /* AddPlan(p, $('input[name=SDR]').val(), $('input[name=DR]').val()); */ }
+}
+
+
 // Animations
 function toggle_sscreen(t) {
-    $(t).css("display", function (t, e) { return "none" === e ? "initial" : "none" });
+    $(t).css("display", function (t, e) { return "none" === e ? "initial" : "none" })
 }
 
 function DisplayRangeValue(t) {
-    document.getElementById(t).textContent = $('input[name=SDR]').val();
+    p = t.split(' ')
+    document.getElementById(p[0]).textContent = $('input[name=' + p[1] + ']').val()
+}
+
+function CenterContainer() {
+    for (var i = 0; i < SSBID.length; i++) {
+        $(SSBID[i]).css('margin-top', $(SSBID[i]).height() / -2)
+        $(SSBID[i]).css('margin-left', $(SSBID[i]).innerWidth() / -2)
+    }
+}
+
+function DisplayFormException(t, m) {
+    alert(t.concat('p'));
+    document.getElementById(t.concat('P')).textContent = m;
+    toggle_sscreen(('#').concat(t));
 }
 
 // API Section
@@ -44,12 +81,6 @@ function GetSystemStatus() {
     $.ajax({ method: "Get", url: RequestUrls[0] + "GetSystemStatus", data: {}, complete: function (t) { alert("Not Implemented !") }, dataType: "json" })
 }
 
-// GP functions
-function SetDefaultValues() {
-    document.getElementById('SDRD').textContent = 182;
-    document.getElementById('DRD').textContent = 182;
-}
-
 // Objects
 function PlanTemplate(t, e, a) {
     this.Name = t, this.StartCondition = e, this.Duration = a
@@ -66,16 +97,3 @@ function DeleteActionTemplate(t, e) {
 function PlansData(t) {
     this.Created = Date.now(), this.List = t
 }
-
-// Events
-$(document).ready(function () {
-    //localStorage.hasOwnProperty("Plans") ? (Plans = JSON.parse(localStorage.getItem("Plans")), localStorage.clear(), Date.now() - Plans.Created >= 6e4 && GetAllPlans()) : GetAllPlans()
-    SetDefaultValues();
-});
-
-$(window).unload(function () {
-    //localStorage.setItem('Plans', JSON.stringify(Plans));
-});
-
-// var
-var Plans, System, RequestUrls = ["/../api/SystemInformation/", "/../api/PlanAction/"];
