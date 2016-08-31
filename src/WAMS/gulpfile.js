@@ -1,4 +1,4 @@
-/// <binding AfterBuild='min' Clean='min' ProjectOpened='min' />
+/// <binding BeforeBuild='min' Clean='min' ProjectOpened='min' />
 "use strict";
 
 var gulp = require("gulp"),

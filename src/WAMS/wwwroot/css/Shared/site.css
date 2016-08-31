@@ -5,7 +5,7 @@
 html, body{
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.75);
     overflow-x: hidden;
     overflow-y: auto;
     font-family: 'Open Sans', sans-serif;
@@ -44,6 +44,6 @@ html, body{
 }
 
 ::-webkit-scrollbar-track {
-  background: #D8D8D8;
+  background: rgba(0, 0, 0, 0.75);
   border: none;
 }

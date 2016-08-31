@@ -22,10 +22,10 @@ namespace WAMS.APIController
             _logger = loggerFactory.CreateLogger(GetType().Namespace);
         }
 
-        // PUT api/AddPlan/PlanTemplate
+        // PUT api/AddPlan/AddPlanTemplate
         [HttpPut]
         [ActionName("AddPlan")]
-        public IActionResult AddPlan(PlanTemplate NewPlan)
+        public IActionResult AddPlan(AddPlanTemplate NewPlan)
         {
             bool Result = PlanContainer.AddPlan(new Plan() {
                 Name = NewPlan.Name,
@@ -42,6 +42,13 @@ namespace WAMS.APIController
         public IActionResult TogglePlan(string Name)
         {
             if (PlanWorker.TogglePlan(Name)) { return Ok(); } else { return BadRequest(); }
+        }
+
+        // POST api/PlanAction/AlterPlan/AlterPlanTemplate
+        [HttpPost]
+        public IActionResult AlterPlan(AlterPlanTemplate NewPlan)
+        {
+            if (PlanWorker.AlterPlan(NewPlan.OldPlanName, NewPlan.NewPlan)) { return Ok(); } else { return BadRequest(); }
         }
 
         // DELETE api/PlanAction/DeletePlan/string
@@ -111,11 +118,17 @@ namespace WAMS.APIController
         }
     }
 
-    public class PlanTemplate
+    public class AddPlanTemplate
     {
         public string Name { get; set; }
         public int StartCondition { get; set; }
         public int Duration { get; set; }
+    }
+
+    public class AlterPlanTemplate
+    {
+        public string OldPlanName { get; set; }
+        public Plan NewPlan { get; set; }
     }
 
     public class ActionTemplate

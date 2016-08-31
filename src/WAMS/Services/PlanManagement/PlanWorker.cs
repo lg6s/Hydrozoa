@@ -27,7 +27,7 @@ namespace WAMS.Services.PlanManagement
             _logger = loggerFactory.CreateLogger("WAMS.PlanWorker");
             _Valve = Valve;
 
-            PlanPeriod = new Timer(60000);
+            PlanPeriod = new Timer(120000);
             PlanPeriod.AutoReset = true;
             PlanPeriod.Elapsed += PlanWorkerEvent;
             PlanPeriod.Enabled = true;
@@ -59,7 +59,41 @@ namespace WAMS.Services.PlanManagement
             _logger.LogInformation("ActionWorker Elapsed successfully !");
         }
 
-        public static bool RemovePlan(string Name)
+        private static void PauseTimers()
+        {
+            PlanPeriod.Stop();
+            ActionPeriod.Stop();
+            ToggleBackupPeriod();
+            Task.Delay(30000);
+            ToggleBackupPeriod();
+            ActionPeriod.Start();
+            PlanPeriod.Start();
+        }
+
+        internal static bool AlterPlan(string OldPlanName, Plan NewPlan)
+        {
+            if (Container.Any(e => e.Name.Equals(OldPlanName))) {
+                Plan OldPlan = ActivePlans.Where(e => e.Name.Equals(OldPlanName)).First();
+                PauseTimers();
+                lock (Container) {
+                    if (OldPlan.IsActive()) {
+                        lock (ActivePlans) {
+                            if (ActiveAction.PlanName.Equals(OldPlanName) && OldPlanName != NewPlan.Name) {
+                                lock (ActiveAction) { ActiveAction.PlanName = NewPlan.Name; }
+                            }
+                            ActivePlans.Remove(OldPlan);
+                            ActivePlans.Add(NewPlan);
+                        }
+                    }
+                    Container.Remove(OldPlan);
+                    Container.Add(NewPlan);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        internal static bool RemovePlan(string Name)
         {
             if (ActivePlans.Any(e => !(e.Name.Equals(Name)))) { return false; } else {
                 ActivePlans.RemoveAll(e => e.Name.Equals(Name));
@@ -73,7 +107,7 @@ namespace WAMS.Services.PlanManagement
             }
         }
 
-        public static bool RemoveAction(string PlanName, string Name)
+        internal static bool RemoveAction(string PlanName, string Name)
         {
             if (ActivePlans.Any(e => !(e.Name.Equals(PlanName)))) { return false; } else {
                 if (!ActivePlans.Where(e => e.Name.Equals(PlanName)).First().Elements.Any(e => e.Name.Equals(Name)))
@@ -91,9 +125,9 @@ namespace WAMS.Services.PlanManagement
             }
         }
 
-        public static bool IsActive(this Plan p) { return ActivePlans.Any(e => e.Equals(p)); }
+        internal static bool IsActive(this Plan p) { return ActivePlans.Any(e => e.Equals(p)); }
 
-        public static bool TogglePlan(string Name)
+        internal static bool TogglePlan(string Name)
         {
             if (ActivePlans.Any(e => e.Name.Equals(Name))) {
                 ActivePlans.RemoveAll(e => e.Name.Equals(Name));

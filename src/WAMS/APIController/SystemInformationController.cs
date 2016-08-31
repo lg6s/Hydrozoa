@@ -58,7 +58,7 @@ namespace WAMS.APIController
         {
             this.ValveStatus = ValveStatus;
             this.Warnings = Warnings;
-            Date = DateTime.Now.ToLongDateString();
+            Date = DateTime.Now.DayOfYear.ToString();
         }
 
         public override string ToString() { return JsonConvert.SerializeObject(this); }

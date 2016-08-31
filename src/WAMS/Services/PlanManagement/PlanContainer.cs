@@ -54,6 +54,12 @@ namespace WAMS.Services.PlanManagement
             } catch (IOException ex) { _logger.LogCritical(ex.Message); }
         }
 
+        internal static void ToggleBackupPeriod()
+        {
+            if (BackupPeriod.Enabled) { BackupPeriod.Stop(); }
+            else { BackupPeriod.Start(); }
+        }
+
         private static void LoadBackup()
         {
             try {
@@ -78,7 +84,7 @@ namespace WAMS.Services.PlanManagement
             } catch (IOException ex) { _logger.LogCritical(ex.Message); }
         }
 
-        public static bool AddPlan(Plan NewPlan)
+        internal static bool AddPlan(Plan NewPlan)
         {
             if (Container.All(e => !(e.Name.Equals(NewPlan.Name))) && NewPlan.Name != null && NewPlan.Duration.Days > 0) {
                 Container.Add(NewPlan);
@@ -86,7 +92,7 @@ namespace WAMS.Services.PlanManagement
             } else { return false; }
         }
 
-        public static bool AddAction(DataModels.Action Element)
+        internal static bool AddAction(DataModels.Action Element)
         {
             if (Container.Any(e => e.Name.Equals(Element.PlanName))) {
                 if (Container.Where(e => e.Name.Equals(Element.PlanName)).First().Elements.All(e => !(e.Name.Equals(Element.Name)))) {
@@ -97,11 +103,11 @@ namespace WAMS.Services.PlanManagement
             return false;
         }
 
-        public static bool RemovePlan(string Name)
+        internal static bool RemovePlan(string Name)
         {
             if (!Container.Any(e => e.Name.Equals(Name))) { return false; } else {
                 Container.RemoveAll(e => e.Name.Equals(Name));
-                if (ActiveAction.PlanName == Name) {
+                if ((ActiveAction?.PlanName ?? string.Empty).Equals(Name)) {
                     ActiveAction = null;
                     Valve.Shut();
                 }
@@ -109,7 +115,7 @@ namespace WAMS.Services.PlanManagement
             }
         }
 
-        public static bool RemoveAction(string PlanName, string Name)
+        internal static bool RemoveAction(string PlanName, string Name)
         {
             if (!Container.Any(e => e.Name.Equals(PlanName))) { return false; } else {
                 if (!Container.Where(e => e.Name.Equals(PlanName)).First().Elements.Any(e => e.Name.Equals(Name))) { return false; }
