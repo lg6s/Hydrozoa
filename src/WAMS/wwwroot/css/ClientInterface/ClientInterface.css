@@ -201,7 +201,7 @@ html, body{
     font-weight: 500;
 }
 
-.sscreen .container .flawed-input{
+.sscreen .container .finput{
     width: 90%;
     height: 40px;
     display: none;
@@ -215,7 +215,7 @@ html, body{
     box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.5);
 }
 
-.sscreen .container .flawed-input p{
+.sscreen .container .finput p{
     line-height: 40px;
     font-size: 20px;
     font-weight: 500;

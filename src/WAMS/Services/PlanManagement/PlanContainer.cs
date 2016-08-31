@@ -33,7 +33,7 @@ namespace WAMS.Services.PlanManagement
                 Valve = _Valve;
                 LoadBackup();
 
-                BackupPeriod = new Timer(61000000);
+                BackupPeriod = new Timer(60000); // real value = 61000000
                 BackupPeriod.Elapsed += BackupEvent;
                 BackupPeriod.AutoReset = true;
                 BackupPeriod.Enabled = true;
@@ -80,7 +80,7 @@ namespace WAMS.Services.PlanManagement
 
         public static bool AddPlan(Plan NewPlan)
         {
-            if (Container.All(e => !(e.Name.Equals(NewPlan.Name)))) {
+            if (Container.All(e => !(e.Name.Equals(NewPlan.Name))) && NewPlan.Name != null && NewPlan.Duration.Days > 0) {
                 Container.Add(NewPlan);
                 return true;
             } else { return false; }

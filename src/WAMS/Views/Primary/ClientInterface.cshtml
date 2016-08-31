@@ -1,27 +1,27 @@
 ﻿@{
     ViewData["Title"] = "WAMS";
     ViewData["js_dir_dev"] = "~/js/ClientInterface/ClientInterface.js";
-    ViewData["js_dir_pro"] = "~/min/js/ClientInterface/ClientInterface.js";
+    ViewData["js_dir_pro"] = "~/min/js/ClientInterface/ClientInterface-min.js";
     ViewData["css_dir_dev"] = "~/css/ClientInterface/ClientInterface.css";
-    ViewData["css_dir_pro"] = "~/min/css/ClientInterface/ClientInterface.css";
+    ViewData["css_dir_pro"] = "~/min/css/ClientInterface/ClientInterface-min.css";
 }
 <div class="sscreen" id="ss_settings">
     <div class="box" id="SSB0">
-        <img src="~/images/actions/delete.png" onclick="javascript: toggle_sscreen('#ss_settings');" />
+        <img src="~/images/actions/delete.png" onclick="javascript: toggle_sscreen('#ss_settings', '');" />
         <h1>Configuration</h1>
         <div class="container"></div>
     </div>
 </div>
 <div class="sscreen" id="ss_sysinfo">
     <div class="box" id="SSB1">
-        <img src="~/images/actions/delete.png" onclick="javascript: toggle_sscreen('#ss_sysinfo');" />
+        <img src="~/images/actions/delete.png" onclick="javascript: toggle_sscreen('#ss_sysinfo', '');" />
         <h1>SysInfo</h1>
         <div class="container"></div>
     </div>
 </div>
-<div class="sscreen" id="ss_addplan" style="display: initial;">
+<div class="sscreen" id="ss_addplan">
     <div class="box" id="SSB2">
-        <img src="~/images/actions/delete.png" onclick="javascript: toggle_sscreen('#ss_addplan');" />
+        <img src="~/images/actions/delete.png" onclick="javascript: toggle_sscreen('#ss_addplan', 'NPFI');" />
         <h1>Neuer Plan</h1>
         <div class="container">
             <input name="NPN" type="text" placeholder="Name" style="margin-top: 0;"/>
@@ -35,7 +35,7 @@
                 <div class="tleft"><p>Aktive Tage</p></div>
                 <div class="tright"><p id="DRD">182</p></div>
             </div>
-            <div class="flawed-input" id="NPFI"><p id="NPFIP"></p></div>
+            <div class="finput" id="NPFI"><p id="NPFIP"></p></div>
             <div class="submit" onclick="javascript: ProcessNPForm();"><p>Sichern</p></div>
         </div>
     </div>
@@ -48,25 +48,11 @@
         <div class="action" style="float: left;" onclick="javascript: toggle_sscreen('#ss_addplan');"> <img src="~/images/actions/plus.png" /> </div>
         <div class="action" style="float: right;" onclick="javascript: toggle_sscreen('#ss_sysinfo');"> <img src="~/images/actions/status.png" /> </div>
     </div>
-    <div class="container">
+    <div class="container" id="plan-container">
         <div class="plan">
             <div class="status"><h3>I</h3></div>
             <div class="description"><p>Name</p></div>
-            <div class="button"><img src="~/images/actions/play.png" /></div>
-            <div class="button" onclick="javascript: toggle_sscreen('#ss_settings');"><img src="~/images/actions/settings.png" /></div>
-            <div class="button"><img src="~/images/actions/delete.png" /></div>
-        </div>
-        <div class="plan">
-            <div class="status"><h3>A</h3></div>
-            <div class="description"><p>Name</p></div>
-            <div class="button"><img src="~/images/actions/pause.png" /></div>
-            <div class="button" onclick="javascript: toggle_sscreen('#ss_settings');"><img src="~/images/actions/settings.png" /></div>
-            <div class="button"><img src="~/images/actions/delete.png" /></div>
-        </div>
-        <div class="plan">
-            <div class="status"><h3>I</h3></div>
-            <div class="description"><p>Name</p></div>
-            <div class="button"><img src="~/images/actions/play.png" /></div>
+            <div class="button"><img src="~/images/actions/start-stop.png" /></div>
             <div class="button" onclick="javascript: toggle_sscreen('#ss_settings');"><img src="~/images/actions/settings.png" /></div>
             <div class="button"><img src="~/images/actions/delete.png" /></div>
         </div>

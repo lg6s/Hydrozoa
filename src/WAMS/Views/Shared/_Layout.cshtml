@@ -12,8 +12,8 @@
             <link rel="stylesheet" href=@ViewData["css_dir_dev"] asp-append-version="true" />
         </enviroment>
         <envirmoment names="Staging,Production">
-            <link rel="stylesheet" href="~/min/css/Shared/site.css" asp-append-version="true" />
-            <link rel="stylesheet" href="~/min/css/Shared/reset.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/min/css/Shared/site-min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/min/css/Shared/reset-min.css" asp-append-version="true" />
             <link rel="stylesheet" href=@ViewData["css_dir_pro"] asp-append-version="true" />
         </envirmoment>
     </head>
@@ -27,9 +27,9 @@
                     asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                     asp-fallback-test="window.jQuery">
             </script>
-            <script src=@ViewData["js_dir_pro"] asp-append-version="true"
+            @*<script src=@ViewData["js_dir_pro"] asp-append-version="true"
                     asp-fallback-src="@ViewData["js_dir_dev"]">
-            </script>
+            </script>*@
         </enviroment>
         @RenderBody()
     </body>

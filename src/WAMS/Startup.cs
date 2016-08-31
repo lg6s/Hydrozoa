@@ -11,6 +11,7 @@ using NLog.Extensions.Logging;
 using WAMS.Services.GPIOAccess;
 using WAMS.Services.PlanManagement;
 using WAMS.Services;
+using System.Web.Http;
 
 namespace WAMS
 {
@@ -65,6 +66,10 @@ namespace WAMS
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Primary}/{action=ClientInterface}");
+                routes.MapWebApiRoute(
+                    name: "defaultAPI",
+                    template: "api/{controller}/{action}/{NewPlan}",
+                    defaults: new { NewPlan = RouteParameter.Optional });
             });
         }
     }

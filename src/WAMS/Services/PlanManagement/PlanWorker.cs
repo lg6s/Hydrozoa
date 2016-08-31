@@ -108,7 +108,7 @@ namespace WAMS.Services.PlanManagement
             ActivePlans.AddRange(Container.Where(e =>
                 e.StartCondition <= DateTime.Now.DayOfYear
                 && (e.StartCondition + e.Duration.Days) >= DateTime.Now.DayOfYear
-                && e.Elements.Count > 0)); // warn the user that plans don't get activated when they have no actions
+                && e.Elements.Any())); // warn the user that plans don't get activated when they have no actions
 
             ActivePlans.RemoveAll(e => (e.StartCondition + e.Duration.Days) < DateTime.Now.DayOfYear);
 

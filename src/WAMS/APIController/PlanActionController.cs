@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -11,8 +10,9 @@ using WAMS.Services.PlanManagement;
 
 namespace WAMS.APIController
 {
-    [Route("api/PlanAction")]
-    public class PlanActionController : ApiController
+    [Produces("application/json")]
+    [System.Web.Http.Route("api/PlanAction")]
+    public class PlanActionController : Controller
     {
         public static List<Tuple<string, DateTime>> Warnings = new List<Tuple<string, DateTime>>();
         protected ILogger _logger { get; }
@@ -24,25 +24,29 @@ namespace WAMS.APIController
 
         // PUT api/AddPlan/PlanTemplate
         [HttpPut]
+        [ActionName("AddPlan")]
         public IActionResult AddPlan(PlanTemplate NewPlan)
         {
             bool Result = PlanContainer.AddPlan(new Plan() {
                 Name = NewPlan.Name,
                 StartCondition = Convert.ToUInt16(NewPlan.StartCondition),
-                Duration = new TimeSpan(NewPlan.Duration, 0, 0, 0)
+                Duration = new TimeSpan(NewPlan.Duration, 0, 0, 0),
+                Elements = new List<DataModels.Action>()
             });
             if (Result) { return Ok(); } else { return BadRequest(); }
         }
 
-        // POST api/TogglePlan/string
+        // POST api/PlanAction/TogglePlan/string
         [HttpPost]
+        [ActionName("TogglePlan")]
         public IActionResult TogglePlan(string Name)
         {
             if (PlanWorker.TogglePlan(Name)) { return Ok(); } else { return BadRequest(); }
         }
 
-        // DELETE api/DeletePlan/string
+        // DELETE api/PlanAction/DeletePlan/string
         [HttpDelete]
+        [ActionName("DeletePlan")]
         public IActionResult DeletePlan(string Name)
         {
             bool r1 = true;
@@ -55,9 +59,9 @@ namespace WAMS.APIController
             if (r1 && r2) { return Ok(); } else { return BadRequest(); }
         }
 
-        // GET api/GetAllPlans
+        // GET api/PlanAction/GetAllPlans
         [HttpGet]
-        [Route("api/SystemInformation/GetAllPlans")]
+        [ActionName("GetAllPlans")]
         public string GetAllPlans()
         {
             List<PlanWrapper> Package = new List<PlanWrapper>(PlanContainer.Container.Count);
@@ -65,8 +69,19 @@ namespace WAMS.APIController
             return JsonConvert.SerializeObject(Package);
         }
 
-        // PUT api/AddAction/ActionTemplate
+        // Get api/PlanAction/GetPlanStatuses
+        [HttpGet]
+        [ActionName("GetPlanStatuses")]
+        public string GetPlanStatuses()
+        {
+            Dictionary<string, bool> Statuses = new Dictionary<string, bool>(PlanContainer.Container.Count);
+            foreach(Plan p in PlanContainer.Container) { Statuses.Add(p.Name, p.IsActive()); }
+            return JsonConvert.SerializeObject(Statuses);
+        }
+
+        // PUT api/PlanAction/AddAction/ActionTemplate
         [HttpPut]
+        [ActionName("AddAction")]
         public IActionResult AddAction(ActionTemplate NewAction)
         {
             bool Result = PlanContainer.AddAction(new DataModels.Action() {
@@ -80,8 +95,9 @@ namespace WAMS.APIController
             if (Result) { return Ok(); } else { return BadRequest(); }
         }
 
-        // DELETE api/DeleteAction/DeleteActionTemplate
+        // DELETE api/PlanAction/DeleteAction/DeleteActionTemplate
         [HttpDelete]
+        [ActionName("DeleteAction")]
         public IActionResult DeleteAction(DeleteActionTemplate Action)
         {
             bool r1 = true;

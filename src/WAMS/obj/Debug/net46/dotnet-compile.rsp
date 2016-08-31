@@ -14,7 +14,9 @@
 --version:1.0.0.0
 --informational-version:1.0.0
 --target-framework:.NETFramework,Version=v4.6
---reference:C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.Client\5.2.2\lib\net45\System.Net.Http.Formatting.dll
+--reference:C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.Client\5.2.3\lib\net45\System.Net.Http.Formatting.dll
+--reference:C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.Core\5.2.3\lib\net45\System.Web.Http.dll
+--reference:C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.WebHost\5.2.3\lib\net45\System.Web.Http.WebHost.dll
 --reference:C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Antiforgery\1.0.0\lib\net451\Microsoft.AspNetCore.Antiforgery.dll
 --reference:C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Authorization\1.0.0\lib\net451\Microsoft.AspNetCore.Authorization.dll
 --reference:C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Cors\1.0.0\lib\net451\Microsoft.AspNetCore.Cors.dll

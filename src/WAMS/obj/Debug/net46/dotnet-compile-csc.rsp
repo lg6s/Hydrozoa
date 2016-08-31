@@ -10,7 +10,9 @@
 -nologo
 "C:\Users\Max\Desktop\WAMS\src\WAMS\obj\Debug\net46\dotnet-compile.assemblyinfo.cs"
 -out:"C:\Users\Max\Desktop\WAMS\src\WAMS\bin\Debug\net46\WAMS.exe"
--r:"C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.Client\5.2.2\lib\net45\System.Net.Http.Formatting.dll"
+-r:"C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.Client\5.2.3\lib\net45\System.Net.Http.Formatting.dll"
+-r:"C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.Core\5.2.3\lib\net45\System.Web.Http.dll"
+-r:"C:\Users\Max\.nuget\packages\Microsoft.AspNet.WebApi.WebHost\5.2.3\lib\net45\System.Web.Http.WebHost.dll"
 -r:"C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Antiforgery\1.0.0\lib\net451\Microsoft.AspNetCore.Antiforgery.dll"
 -r:"C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Authorization\1.0.0\lib\net451\Microsoft.AspNetCore.Authorization.dll"
 -r:"C:\Users\Max\.nuget\packages\Microsoft.AspNetCore.Cors\1.0.0\lib\net451\Microsoft.AspNetCore.Cors.dll"

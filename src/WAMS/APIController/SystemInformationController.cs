@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using WAMS.Services.GPIOAccess;
-using System.Web.Http;
 
 namespace WAMS.APIController
 {
-    [Route("api/SystemInformation")]
-    public class SystemInformationController : ApiController
+    [Produces("application/json")]
+    [System.Web.Http.Route("api/SystemInformation")]
+    public class SystemInformationController : Controller
     {
         public static List<Tuple<string, DateTime>> Warnings = new List<Tuple<string, DateTime>>();
         protected ILogger _logger { get; }
@@ -23,6 +23,7 @@ namespace WAMS.APIController
 
         // GET api/GetWarnings/
         [HttpGet]
+        [ActionName("GetWarnings")]
         public string GetWarnings()
         {
             string json = JsonConvert.SerializeObject(Warnings);
@@ -32,6 +33,7 @@ namespace WAMS.APIController
 
         // GET api/GetValveStatus/
         [HttpGet]
+        [ActionName("GetValveStatus")]
         public string GetValveStatus()
         {
             if (Valve.IsOpen) { return "offen"; } else { return "geschlossen"; }
@@ -39,6 +41,7 @@ namespace WAMS.APIController
 
         // GET api/GetSystemStatus/
         [HttpGet]
+        [ActionName("GetSystemStatus")]
         public string GetSystemStatus()
         {
             return new SystemStatus(GetValveStatus(), Warnings).ToString();
