@@ -107,6 +107,11 @@ namespace WAMS.Services.PlanManagement
             }
         }
 
+        internal static bool AlterAction(Action EditedAction)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static bool RemoveAction(string PlanName, string Name)
         {
             if (ActivePlans.Any(e => !(e.Name.Equals(PlanName)))) { return false; } else {

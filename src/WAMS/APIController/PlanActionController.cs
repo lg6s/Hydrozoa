@@ -89,14 +89,24 @@ namespace WAMS.APIController
         // PUT api/PlanAction/AddAction/ActionTemplate
         [HttpPut]
         [ActionName("AddAction")]
-        public IActionResult AddAction(ActionTemplate NewAction)
+        public string AddAction(ActionTemplate NewAction)
         {
-            bool Result = PlanContainer.AddAction(new DataModels.Action() {
+            return PlanContainer.AddAction(new DataModels.Action() {
                  Name = NewAction.Name,
-                 PlanName = NewAction.PlanName,
-                 Duration = new TimeSpan(0, NewAction.Duration, 0),
-                 PrimaryCondition = DateTime.ParseExact(NewAction.PrimaryCondition, "ddd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
-                 SecondaryCondition = Convert.ToUInt16(NewAction.SecondaryCondition)
+                 PlanName = NewAction.PlanName
+            });
+        }
+
+        // POST api/PlanAction/AlterAction/ActionTemplate
+        [HttpPost]
+        public IActionResult AlterAction(ActionTemplate EditedAction)
+        {
+            bool Result = PlanWorker.AlterAction(new DataModels.Action() {
+                Name = EditedAction.Name,
+                PlanName = EditedAction.PlanName,
+                Duration = new TimeSpan(0, EditedAction.Duration, 0),
+                PrimaryCondition = DateTime.ParseExact(EditedAction.PrimaryCondition, "ddd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                SecondaryCondition = Convert.ToUInt16(EditedAction.SecondaryCondition)
             });
 
             if (Result) { return Ok(); } else { return BadRequest(); }

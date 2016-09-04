@@ -7,13 +7,29 @@ $(document).ready(function () {
 
 $(window).resize(function () { CenterContainer(); });
 
-$(window).click(function (e) { if (e.target.id.split('_')[0] == 'ss') { toggle_sscreen(('#').concat(e.target.id), '') } })
-
 $(window).unload(function () { localStorage.setItem('Plans', JSON.stringify(Plans)); });
+
+$(window).click(function (e) {
+    var t = e.target.id.split('_')
+    if (t[0] == 'ss') {
+        switch (t[1]) {
+            case 'addplan':
+                t = 'NPFI'
+                break
+            case 'sysinfo':
+                t = 'EAFI'
+                break
+            case 'settings':
+                t = 'SPFI'
+                break
+        }
+        toggle_sscreen(('#').concat(e.target.id), t)
+    }
+})
 
 // var
 var p, Plans, System, RequestUrls = ["/api/SystemInformation/", "/api/PlanAction/"], SSBID = ['#SSB0', '#SSB1', '#SSB2'],
-PlanPieces = [
+VisibleSetting, PlanPieces = [
     '<div class="plan" id="', '"><div class="status"><h3 id="', '">', '</h3></div><div class="description"><p id="', '">',
     '</p></div><div class="button" onclick="javascript: ApiTogglePlan(\'',
     '\');"><img src="/images/actions/start-stop.png" /></div><div class="button" onclick="javascript: toggle_sscreen(\'#ss_settings\', \'\', \'',
@@ -26,6 +42,14 @@ function ProcessNPForm() {
     if (p.length < 5 || p == null) { DisplayFormException('NPFI', 'Der Name muss 5 Zeichen enthalten!') }
     else if (GetIndexofPlan(p) > -1) { DisplayFormException('NPFI', 'Der Name ist schon vergeben!') }
     else { ApiAddPlan(p, $('input[name=SDR]').val(), $('input[name=DR]').val()), HideFormException('NPFI') }
+}
+
+function ProcessPlanEdit() {
+    var e = $('input[name=SPN]').val()
+    var a = $('input[name=SeSDR]').val()
+    var n = $('input[name=SeDR]').val()
+    if (e.length < 5 || e == null) { DisplayFormException('SPFI', 'Der Name muss 5 Zeichen enthalten!') }
+    else { ApiAlterPlan(VisibleSetting, e, a, n); }
 }
 
 function ProccessPlanDeletion(t) {
@@ -50,26 +74,41 @@ function GetIndexofAction(t, e){
     }
 }
 
+function AlterAction(t) {
+    // TTT-SS:MM | FF | DD
+}
+
 /* ToDo
-    {Design Settings, GenerateSettingContent}
-    Design Info
+    GenerateActionElement
+    DispatchActionDivs after use
+    AddPlan Change !!
+    AlterAction
+    AddAction
     responsive
 */
 
 // Animations
 function toggle_sscreen(t, e, a) {
-
     $(t).css("display", function (b, c) {
         if (c === 'none') {
-            GenerateSettingContent(a);
+            if (t.split('_')[1] == 'settings') {GenerateSettingContent(a) }
             return 'initial'
         } else { return 'none' }})
     CenterContainer()
     if (e != null) { HideFormException(e); }
 }
 
-function toggle_settings(t) {
-
+function ToggleSettingContent(t) {
+    if (document.getElementById('switch-caption').innerText == 'Plan') {
+        document.getElementById('switch-caption').innerText = 'Aktionen'
+        $('#ssplan-container').addClass('hidden')
+        $('#ssaction-container').removeClass('hidden')
+    } else {
+        document.getElementById('switch-caption').innerText = 'Plan'
+        $('#ssaction-container').addClass('hidden')
+        $('#ssplan-container').removeClass('hidden')
+    }
+    CenterContainer();
 }
 
 function DisplayRangeValue(t) {
@@ -114,9 +153,23 @@ function GeneratePlanElement(t, a) {
     $('#plan-container').append(e);
 }
 
+function GenerateActionElement(t) {
+
+}
+
 function GenerateSettingContent(t) {
-    var CPlan = Plans.List[GetIndexofPlan(t)]['Content'];
-    document.getElementById('switch-caption').innerText = CPlan['Name']
+    VisibleSetting = t;
+    var CPlan = Plans.List[GetIndexofPlan(t)]['Content']
+    document.getElementById('switch-caption').innerText = 'Plan'
+    $('input[name=SPN]').val(t)
+    $('input[name=SeDR]').val(parseInt(CPlan['Duration'].split('.')[0]))
+    $('input[name=SeSDR]').val(CPlan['StartCondition'])
+    DisplayRangeValue('SeSDRD SeSDR')
+    DisplayRangeValue('SeDRD SeDR')
+
+    for (var i = 0; i < CPlan['Elements'].length; i++) {
+        GenerateActionElement(CPlan['Elements'][i]['Name']);
+    }
 }
 
 // API Section

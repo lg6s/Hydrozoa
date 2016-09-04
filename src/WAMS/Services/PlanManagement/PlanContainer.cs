@@ -92,15 +92,18 @@ namespace WAMS.Services.PlanManagement
             } else { return false; }
         }
 
-        internal static bool AddAction(DataModels.Action Element)
+        internal static string AddAction(DataModels.Action Element)
         {
+            Random random = new Random();
+            string alpha = "qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM1234567890";
             if (Container.Any(e => e.Name.Equals(Element.PlanName))) {
-                if (Container.Where(e => e.Name.Equals(Element.PlanName)).First().Elements.All(e => !(e.Name.Equals(Element.Name)))) {
-                    Container.Where(e => e.Name.Equals(Element.PlanName)).First().Elements.Add(Element);
-                    return true;
+                while (true) {
+                    if (Container.Where(e => e.Name.Equals(Element.PlanName)).First().Elements.All(e => !(e.Name.Equals(Element.Name)))) {
+                        Container.Where(e => e.Name.Equals(Element.PlanName)).First().Elements.Add(Element);
+                        return Element.Name;
+                    } else { Element.Name = new string(Enumerable.Repeat(alpha, 25).Select(s => s[random.Next(s.Length)]).ToArray()); }
                 }
-            }
-            return false;
+            } else { return "false"; }
         }
 
         internal static bool RemovePlan(string Name)

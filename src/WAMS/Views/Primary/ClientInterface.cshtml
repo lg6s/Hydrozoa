@@ -8,28 +8,38 @@
 <div class="sscreen" id="ss_settings">
     <div class="box" id="SSB0">
         <div class="switch">
-            <div class="button left">
+            <div class="button left" onclick="javascript: ToggleSettingContent()">
                 <img src="~/images/actions/switch.png" />
             </div>
             <h1 id="switch-caption">Plan</h1>
-            <div class="button right">
+            <div class="button right" onclick="javascript: ToggleSettingContent()">
                 <img src="~/images/actions/switch.png" />
             </div>
         </div>
-        <div class="container">
+        <div class="container" id="ssplan-container">
             <input name="SPN" type="text" placeholder="Name" style="margin-top: 0;"/>
             <div class="range-wrapper">
-                <input type="range" name="SSDR" min="1" max="365" onchange="javascript: DisplayRangeValue('SSDRD SSDR');"/>
+                <input type="range" name="SeSDR" min="1" max="365" onchange="javascript: DisplayRangeValue('SeSDRD SeSDR');"/>
                 <div class="tleft"><p>Start Tag</p></div>
-                <div class="tright"><p id="SSDRD">182</p></div>
+                <div class="tright"><p id="SeSDRD">182</p></div>
             </div>
             <div class="range-wrapper">
-                <input type="range" name="SDR" min="1" max="365" onchange="javascript: DisplayRangeValue('SDRD SDR');"/>
+                <input type="range" name="SeDR" min="1" max="365" onchange="javascript: DisplayRangeValue('SeDRD SeDR');"/>
                 <div class="tleft"><p>Aktive Tage</p></div>
-                <div class="tright"><p id="SDRD">182</p></div>
+                <div class="tright"><p id="SeDRD">182</p></div>
             </div>
             <div class="finput" id="SPFI"><p id="SPFIP"></p></div>
-            <div class="submit" onclick=""><p>Sichern</p></div>
+            <div class="submit" onclick="javascript: ProcessPlanEdit()"><p>Sichern</p></div>
+        </div>
+        <div class="container hidden" id="ssaction-container">
+            <div class="display button" onclick=""><h1>+</h1></div>
+            <div class="container actions">
+                <div class="action first">
+                    <input type="text" name="ActionName" onblur="javascript('ActionName')" placeholder ="TTT-SS:MM | FF | DD" />
+                    <div class="delete" onclick="javascript: AlterAction('ActionName');"><img src="~/images/actions/delete.png" /></div>
+                </div>
+            </div>
+            <div class="finput" id="EAFI"><p id="EAFIP"></p></div>
         </div>
     </div>
 </div>
