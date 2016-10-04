@@ -1,6 +1,4 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="../clientinterface/clientinterface.js" />
-/// <reference path="../clientinterface/clientinterface-min.js" />
 /// <reference path="../gulpfile.js" />
 /// <reference path="js/clientinterface/clientinterface.js" />
 /// <reference path="js/error/error.js" />
