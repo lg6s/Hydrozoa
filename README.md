@@ -1,2 +1,3 @@
-# WAMS
-C# Rasberry PI Watercomputer
+# Hydrozoa 
+
+A lightweight Water Management System, build with erlang, kdb+ and julia.
