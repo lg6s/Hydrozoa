@@ -13,11 +13,6 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# dependencies 
-deb http://packages.erlang-solutions.com/debian wheezy contrib
-wget http://packages.erlang-solutions.com/debian/erlang_solutions.asc
-apt-key add erlang_solutions.asc && rm erlang_solutions.asc
-
 # get get up to the newest state
 apt-get update
 apt-get -y upgrade
@@ -29,15 +24,17 @@ apt-get -y upgrade
 
 
 # development 
+apt-get -y install unzip 
 apt-get -y install julia
-apt-get -y install erlang-mini
+apt-get -y install rlwrap
+apt-get -y install erlang-base
 
 # auto-starts
 cp $p/resources/scripts/hydroza_autostart /etc/init.d/
 chmod +x /etc/init.d/hydroza_autostart
 
 # kdb+ setup
-echo "alias q='QHOME=~/q rlwrap -r ~/q/l32/q'" >> ~/.bashrc
+echo "alias q='QHOME=~/q rlwrap -r ~/q/l32arm/q'" >> ~/.bashrc
 cd $p/resources/archives/kdb
 unzip kdb_arm.zip
 rm q/trade.q 
