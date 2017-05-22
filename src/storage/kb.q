@@ -10,8 +10,11 @@ tasks:([`u#tiseq:`symbol$()]actn:`int$();per:`long$();`s#obs:`long$();loc:`symbo
 / loc -> where to perform the task, typically a valve
 / jb -> job
 
-ld: 0b 				/ lock down variable
-ts: 7200000000000 	/ time shift (+2h)
+ps:([`u#param:`symbol$(`ld,`ts)]val:(0b,7200000000000))
+/ param -> name of the parameter
+/ val -> value of the parameter
+/ ld -> lock down variable 
+/ ts -> time shift (+2h)
 
 / mkj -> make a job 
 / p = per = "D'D'HH:MM:SS:mmmmmmmmm": "9D12:55:21.734357411" -> 9D12:55:21.734357411
@@ -60,10 +63,12 @@ rmj:{[j]j: `$j; delete from jobs where jb = j; delete from tasks where jb = j; }
 / rmt -> remove task | t = tiseq 
 rmt:{[t]t: `$t; delete from tasks where tiseq = t}
 
-/ sld -> set lock down variable
-/ b = boolean -> "1" | "0"
-sld:{[b]`ld set (b = "1")}
+/ scs -> save current state
+scs:{ save `$"~/q/hydrozoa_kb/ps"
+	save `$"~/q/hydrozoa_kb/jobs"
+	save `$"~/q/hydrozoa_kb/tasks" }
 
-/ sts -> set time shift
-/ t = time shift -> "D'D'HH:MM:SS:mmmmmmmmm": "9D12:55:21.734357411"
-sts:{[t]`t set`long$"N"$t}
+/ lhs -> load historic state
+lhs:{ load `$"~/q/hydrozoa_kb/ps"
+	load `$"~/q/hydrozoa_kb/jobs"
+	load `$"~/q/hydrozoa_kb/tasks" }
