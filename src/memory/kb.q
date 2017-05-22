@@ -53,3 +53,6 @@ gnt:{if[ld; '"lock down in effect"]; t: ts + `long$.z.p;
 	q: select jb from jobs where stat = 1
 	q: select actn, loc, (obs-t)+per*ceiling((t-obs)%per) from tasks where jb in q[`jb]
 	q: select first actn, loc, obs from q where obs = min obs };
+
+/ rmj -> remove job | j = jb
+rmj:{[j]j: `$j; delete from jobs where jb = j; delete from tasks where jb = j; }
