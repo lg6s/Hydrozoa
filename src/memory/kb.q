@@ -56,3 +56,14 @@ gnt:{if[ld; '"lock down in effect"]; t: ts + `long$.z.p;
 
 / rmj -> remove job | j = jb
 rmj:{[j]j: `$j; delete from jobs where jb = j; delete from tasks where jb = j; }
+
+/ rmt -> remove task | t = tiseq 
+rmt:{[t]t: `$t; delete from tasks where tiseq = t}
+
+/ sld -> set lock down variable
+/ b = boolean -> "1" | "0"
+sld:{[b]`ld set (b = "1")}
+
+/ sts -> set time shift
+/ t = time shift -> "D'D'HH:MM:SS:mmmmmmmmm": "9D12:55:21.734357411"
+sts:{[t]`t set`long$"N"$t}
