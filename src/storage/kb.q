@@ -20,6 +20,9 @@ ps:([`u#param:`symbol$(`ld,`ts)]val:(0b,7200000000000))
 if[0b = "B"$ last (system "test ! -d ~/q/hydrozoa_kb; echo $?"); 
 		system("mkdir ~/q/hydrozoa_kb")]
 
+/ defj -> define job | j = jb 
+defj:{[j]jobs,:((`$j), 0b) }
+
 / mkj -> make a job 
 / p = per = "D'D'HH:MM:SS:mmmmmmmmm": "9D12:55:21.734357411" -> 9D12:55:21.734357411
 / o = obs = "YYYY-MM-DD'T'HH:MM:SS.mmmmmmmmm": "2007-08-09T12:55:21.734357411" -> 2007.08.09D12:55:21.734357411
@@ -48,21 +51,18 @@ mkj:{[p;d;o;l;j]
 	seq: `$("" sv string md5 "." sv ({[x] string x} each (2, p, (o+d), l))); 
 	tasks,:(seq; 2; p; (o+d); l; j); }; 
 
-/ defj -> define job | j = jb 
-defj:{[j]jobs,:((`$j), 0b) }
-
 / ssj -> set status of job 
 / j = jb | s = stat ("0" or "1")
 ssj:{[j;s]update stat:(s = "1") from `jobs where jb = `$j } 
+
+/ rmj -> remove job | j = jb
+rmj:{[j]j: `$j; delete from jobs where jb = j; delete from tasks where jb = j; }
 
 / gnt -> get next task 
 gnt:{if[ld; '"lock down in effect"]; t: ts + `long$.z.p;
 	q: select jb from jobs where stat = 1
 	q: select actn, loc, (obs-t)+per*ceiling((t-obs)%per) from tasks where jb in q[`jb]
 	q: select first actn, loc, obs from q where obs = min obs };
-
-/ rmj -> remove job | j = jb
-rmj:{[j]j: `$j; delete from jobs where jb = j; delete from tasks where jb = j; }
 
 / rmt -> remove task | t = tiseq 
 rmt:{[t]t: `$t; delete from tasks where tiseq = t}
