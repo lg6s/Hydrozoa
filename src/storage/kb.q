@@ -16,6 +16,10 @@ ps:([`u#param:`symbol$(`ld,`ts)]val:(0b,7200000000000))
 / ld -> lock down variable 
 / ts -> time shift (+2h)
 
+/ create backup directory 
+if[0b = "B"$ last (system "test ! -d ~/q/hydrozoa_kb; echo $?"); 
+		system("mkdir ~/q/hydrozoa_kb")]
+
 / mkj -> make a job 
 / p = per = "D'D'HH:MM:SS:mmmmmmmmm": "9D12:55:21.734357411" -> 9D12:55:21.734357411
 / o = obs = "YYYY-MM-DD'T'HH:MM:SS.mmmmmmmmm": "2007-08-09T12:55:21.734357411" -> 2007.08.09D12:55:21.734357411
@@ -64,11 +68,16 @@ rmj:{[j]j: `$j; delete from jobs where jb = j; delete from tasks where jb = j; }
 rmt:{[t]t: `$t; delete from tasks where tiseq = t}
 
 / scs -> save current state
-scs:{ save `$"~/q/hydrozoa_kb/ps"
+scs:{ 
+	save `$"~/q/hydrozoa_kb/ps"
 	save `$"~/q/hydrozoa_kb/jobs"
 	save `$"~/q/hydrozoa_kb/tasks" }
 
 / lhs -> load historic state
-lhs:{ load `$"~/q/hydrozoa_kb/ps"
-	load `$"~/q/hydrozoa_kb/jobs"
-	load `$"~/q/hydrozoa_kb/tasks" }
+lhs:{ 
+	îf["B"$ last (system "test ! -f ~/q/hydrozoa_kb/ps; echo $?"); 
+		load `$"~/q/hydrozoa_kb/ps" ]
+	if["B"$ last (system "test ! -f ~/q/hydrozoa_kb/jobs; echo $?");
+		load `$"~/q/hydrozoa_kb/jobs"
+		if["B"$ last (system "test ! -f ~/q/hydrozoa_kb/tasks; echo $?");
+			load `$"~/q/hydrozoa_kb/tasks" ]]}
