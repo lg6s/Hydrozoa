@@ -1,7 +1,7 @@
 #!/bin/bash
 
 current_user=$(whoami)
-p=$(dirname $(dirname $(dirname $PWD)))
+p=$(dirname $(dirname $PWD))
 if [ $current_user != "root" ]; then
     echo "$(basename "$0") setup requires superuser privileges to run !"
     exit 1
