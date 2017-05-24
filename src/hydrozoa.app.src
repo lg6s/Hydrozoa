@@ -1,0 +1,12 @@
+{application, hydrozoa,
+ [{description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {modules, []},
+  {applications, [
+                 kernel
+                 ,stdlib
+                 ]},
+  {mod, {hydrozoa_app, []}},
+  {env, []}
+ ]}.

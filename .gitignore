@@ -1,3 +1,4 @@
 # erlang 
-bin/
+_build/
 *.beam
+*.lock
