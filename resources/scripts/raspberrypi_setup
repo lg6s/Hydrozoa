@@ -1,5 +1,4 @@
 #!/bin/bash
-
 current_user=$(whoami)
 p=$(dirname $(dirname $PWD))
 if [ $current_user != "root" ]; then
@@ -14,8 +13,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # get get up to the newest state
-apt-get update
-apt-get -y upgrade
+apt-get update && apt-get -y upgrade
 
 # maintenance 
 #apt-get -y install aptitude
@@ -23,11 +21,21 @@ apt-get -y upgrade
 #apt-get -y install htop
 
 
-# development 
-apt-get -y install unzip 
+# archives 
+apt-get -y install unzip
+
+# Julia 
 apt-get -y install julia
+
+# rlwrap (for q)
 apt-get -y install rlwrap
+
+# erlang
 apt-get -y install erlang-base
+
+# rebar
+git clone https://github.com/erlang/rebar3.git
+cd rebar3 && ./bootstrap
 
 # auto-starts
 cp $p/resources/scripts/hydroza_autostart /etc/init.d/
@@ -37,9 +45,7 @@ chmod +x /etc/init.d/hydroza_autostart
 echo "alias q='QHOME=~/q rlwrap -r ~/q/l32arm/q'" >> ~/.bashrc
 cd $p/resources/archives/kdb
 unzip kdb_arm.zip
-rm q/trade.q 
-rm q/sp.q
-rm q/q.q
+rm q/trade.q q/sp.q q/q.q
 cp -r q ~/.
 cd -
 

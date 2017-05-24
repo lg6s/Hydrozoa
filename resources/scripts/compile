@@ -1,6 +1,0 @@
-#!/bin/bash 
-d=$(dirname $(dirname $PWD))
-[ ! -d "$d/bin" ] && mkdir "$d/bin"
-
-cd "$d/bin"
-erl -compile "$d/src/storage/ikb"
