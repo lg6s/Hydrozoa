@@ -21,7 +21,7 @@ apt-get update && apt-get -y upgrade
 #apt-get -y install htop
 
 
-# archives 
+# unzip (for q) 
 apt-get -y install unzip
 
 # Julia 
@@ -32,10 +32,14 @@ apt-get -y install rlwrap
 
 # erlang
 apt-get -y install erlang-base
+apt-get -y install erlang-asn1
+apt-get -y install erlang-public-key
+apt-get -y install erlang-ssl
+apt-get -y install erlang-inets
 
 # rebar
-git clone https://github.com/erlang/rebar3.git
-cd rebar3 && ./bootstrap
+wget https://s3.amazonaws.com/rebar3/rebar3
+chmod +x ./rebar3 && cp ./rebar3 /bin/.
 
 # auto-starts
 cp $p/resources/scripts/hydroza_autostart /etc/init.d/
