@@ -10,11 +10,10 @@ tasks:([`u#tiseq:`symbol$()]actn:`int$();per:`long$();`s#obs:`long$();loc:`symbo
 / loc -> where to perform the task, typically a valve
 / jb -> job
 
-ps:([`u#param:`symbol$(`ld,`ts)]val:(0b,7200000000000))
+ps:([`u#param:`symbol$(`ld)]val:(0b))
 / param -> name of the parameter
 / val -> value of the parameter
 / ld -> lock down variable 
-/ ts -> time shift (+2h)
 
 / create backup directory 
 if[0b = "B"$ last (system "test ! -d ~/q/hydrozoa_kb; echo $?"); 
@@ -59,7 +58,9 @@ ssj:{[j;s]update stat:(s = "1") from `jobs where jb = `$j }
 rmj:{[j]j: `$j; delete from jobs where jb = j; delete from tasks where jb = j; }
 
 / gnt -> get next task 
-gnt:{if[ld; '"lock down in effect"]; t: ts + `long$.z.p;
+gnt:{
+    q: select first val from ps where param = `ld
+    if[q; '"lock down in effect"]; t: `long$.z.p;
 	q: select jb from jobs where stat = 1
 	q: select actn, loc, (obs-t)+per*ceiling((t-obs)%per) from tasks where jb in q[`jb]
 	q: select first actn, loc, obs from q where obs = min obs };
