@@ -1,6 +1,6 @@
 {application, hydrozoa,
- [{description, ""},
-  {vsn, "1"},
+ [{description, "soft-realtime watercomputer"},
+  {vsn, "0.1.0"},
   {registered, []},
   {modules, []},
   {applications, [
@@ -8,5 +8,7 @@
                  ,stdlib
                  ]},
   {mod, {hydrozoa_app, []}},
+  {maintainers, ["Max Roßner"]},
+  {licenses, ["CC BY-NC-ND 3.0"]},
   {env, []}
  ]}.

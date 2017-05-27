@@ -45,6 +45,9 @@ chmod +x ./rebar3 && cp ./rebar3 /bin/.
 cp $p/resources/scripts/hydroza_autostart /etc/init.d/
 chmod +x /etc/init.d/hydroza_autostart
 
+# open up port 1843 (for q)
+ufw allow 1843
+
 # kdb+ setup
 echo "alias q='QHOME=~/q rlwrap -r ~/q/l32arm/q'" >> ~/.bashrc
 cd $p/resources/archives/kdb

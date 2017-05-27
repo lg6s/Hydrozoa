@@ -69,9 +69,9 @@ rmt:{[t]t: `$t; delete from tasks where tiseq = t}
 
 / scs -> save current state
 scs:{ 
-	save `$"~/q/hydrozoa_kb/ps"
-	save `$"~/q/hydrozoa_kb/jobs"
-	save `$"~/q/hydrozoa_kb/tasks" }
+	save `$"~/q/hydrozoa_kb/ps.xml"
+	save `$"~/q/hydrozoa_kb/jobs.xml"
+	save `$"~/q/hydrozoa_kb/tasks.xml" }
 
 / lhs -> load historic state
 lhs:{ 
