@@ -10,17 +10,18 @@ tasks:([`u#tiseq:`symbol$()]actn:`int$();per:`long$();`s#obs:`long$();loc:`symbo
 / loc -> where to perform the task, typically a valve
 / jb -> job
 
-ps:([`u#param:`symbol$(`ld)]val:(0b))
+ps:([`u#param:`symbol$()]val:())
+ps,:(`ld, 0b)
 / param -> name of the parameter
 / val -> value of the parameter
 / ld -> lock down variable 
 
 / create backup directory 
-if[0b = "B"$ last (system "test ! -d ~/q/hydrozoa_kb; echo $?"); 
+if[not "B"$ last (system "test ! -d ~/q/hydrozoa_kb; echo $?"); 
 		system("mkdir ~/q/hydrozoa_kb")]
 
 / defj -> define job | j = jb 
-defj:{[j]jobs,:((`$j), 0b) }
+defj:{[j]jobs,:((j), 0b) }
 
 / mkj -> make a job 
 / p = per = "D'D'HH:MM:SS:mmmmmmmmm": "9D12:55:21.734357411" -> 9D12:55:21.734357411
@@ -76,9 +77,9 @@ scs:{
 
 / lhs -> load historic state
 lhs:{ 
-	îf["B"$ last (system "test ! -f ~/q/hydrozoa_kb/ps; echo $?"); 
-		load `$"~/q/hydrozoa_kb/ps" ]
-	if["B"$ last (system "test ! -f ~/q/hydrozoa_kb/jobs; echo $?");
-		load `$"~/q/hydrozoa_kb/jobs"
-		if["B"$ last (system "test ! -f ~/q/hydrozoa_kb/tasks; echo $?");
-			load `$"~/q/hydrozoa_kb/tasks" ]]}
+	if["B"$ last (system "test ! -f ~/q/hydrozoa_kb/ps.xml; echo $?"); 
+		load `$"~/q/hydrozoa_kb/ps.xml" ]
+	if["B"$ last (system "test ! -f ~/q/hydrozoa_kb/jobs.xml; echo $?");
+		load `$"~/q/hydrozoa_kb/jobs.xml"
+		if["B"$ last (system "test ! -f ~/q/hydrozoa_kb/tasks.xml; echo $?");
+			load `$"~/q/hydrozoa_kb/tasks.xml" ]]}

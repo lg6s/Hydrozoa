@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # start kdb (add "-" before 1843 for multithreading)
-q ~/Hydrozoa/src/storage/kdb.q -p 1843 -o 2 -q 
+q ~/Hydrozoa/src/storage/kb.q -p 1843 -o 2 -q 
