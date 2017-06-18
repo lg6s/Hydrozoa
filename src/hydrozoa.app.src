@@ -2,7 +2,7 @@
  [{description, "soft-realtime watercomputer"},
   {vsn, "0.1.0"},
   {registered, []},
-  {modules, []},
+  {modules, [hydrozoa, ikb]},
   {applications, [
                  kernel
                  ,stdlib

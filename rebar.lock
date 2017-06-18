@@ -1,0 +1,4 @@
+[{<<"q">>,
+  {git,"git://github.com/michaelwittig/erlang-q.git",
+       {ref,"424922398378bd37d8496171380fb3300f94c415"}},
+  0}].
