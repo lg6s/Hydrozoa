@@ -47,6 +47,8 @@ chmod +x /etc/init.d/hydroza_autostart
 
 # open up port 1843 (for q)
 ufw allow 1843
+# open up port 1844 (for cli_server)
+ufw allow 1844
 
 # kdb+ setup
 echo "alias q='QHOME=~/q rlwrap -r ~/q/l32arm/q'" >> ~/.bashrc

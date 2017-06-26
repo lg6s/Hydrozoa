@@ -1,5 +1,5 @@
 -module(ikb).
--export([act/2, act/3, qry/1, qry/2, delc/0, delc/1, bldc/0, bldc/3]).
+-export([act/1, act/2, qry/1, qry/2, delc/0, delc/1, bldc/0, bldc/3]).
 
 bldc() -> bldc(lkdbcon, <<"127.0.0.1">>, 1843).
 bldc(C, H, P) -> 
@@ -28,20 +28,7 @@ qry(Q, C) ->
 		R -> R
 	end.
 
-%	A=defj	B=mkj
-%	C=ssj	D=rmj
-%	E=gnt	F=rmt
-%	G=scs	H=lhs
-act(I, A) -> act(I, A, lkdbcon).
-act(I, A, C) -> 
-	P = lists:foldl(fun(N, R) -> R, " ", N end, "", A),
-	case I of
-		"A" -> qry(<<"defj", P>>, C);
-		"B" -> qry(<<"mkj", P>>, C); 
-		"C" -> qry(<<"ssj", P>>, C);
-		"D" -> qry(<<"rmj", P>>, C);
-		"E" -> qry(<<"gnt", P>>, C);
-		"F" -> qry(<<"rmt", P>>, C);
-		"G" -> qry(<<"scs", P>>, C);
-		"H" -> qry(<<"lhs", P>>, C)
-	end.
+%	I = [defj, mkj, ssj, rmj, gnt, rmt, scs, lhs]
+% pattern qry: I-A-A-A-A 
+act(Q) -> act(Q, lkdbcon).
+act(Q, C) -> [I|[_|A]] = Q, qry(<<I ++ "[" ++ string:replace(A, "-", ";") ++ "]">>, C).
