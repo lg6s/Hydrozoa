@@ -6,7 +6,7 @@ bldc(C, H, P) ->
 	case ets:info(kdbcons) of 
 		undefined -> ets:new(kdbcons, [set, protected, {keypos,1}, {heir,none}, {write_concurrency,false}, {read_concurrency,false}, named_table]), bldc(C, H, P);
 		_ -> case q:connect(H, P) of
-					{ok, Pid} -> ets:insert(kdbcons, {C, Pid});
+					{ok, Pid} -> ets:insert(kdbcons, {C, Pid}), {ok, Pid};
 					{error, E} -> erlang:error(E);
 					_ -> erlang:error("unknown error")
 			end
@@ -29,6 +29,6 @@ qry(Q, C) ->
 	end.
 
 %	I = [defj, mkj, ssj, rmj, gnt, rmt, scs, lhs]
-% pattern qry: I-A-A-A-A 
+% pattern qry: [a-z0-9]+(%[a-z0-9]*)*
 act(Q) -> act(Q, lkdbcon).
-act(Q, C) -> [I|[_|A]] = Q, qry(<<I ++ "[" ++ string:replace(A, "-", ";") ++ "]">>, C).
+act(Q, C) -> [I|[_|A]] = Q, qry(<<I ++ "[" ++ string:replace(A, "%", ";") ++ "]">>, C).
