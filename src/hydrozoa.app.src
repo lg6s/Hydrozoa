@@ -1,14 +1,10 @@
-{application, hydrozoa,
- [{description, "soft-realtime watercomputer"},
-  {vsn, "0.1.0"},
-  {registered, []},
-  {modules, [hydrozoa, ikb]},
-  {applications, [
-                 kernel
-                 ,stdlib
-                 ]},
-  {mod, {hydrozoa_app, []}},
-  {maintainers, ["Max Roßner"]},
-  {licenses, ["CC BY-NC-ND 3.0"]},
-  {env, []}
- ]}.
+{application, hydrozoa, [
+    {description, "soft-realtime water computer (https://github.com/MxAR/Hydrozoa)"},
+    {vsn, "0.1.0"},
+    {modules, [ikb, hydrozoa, cli_server]},
+    {registered, []},
+    {applications, [kernel, stdlib]},
+    {maintainers, ["Max Rossner"]},
+    {licenses, ["CC BY-NC-ND 3.0"]},
+    {mod, {hydrozoa, []}}
+]}.

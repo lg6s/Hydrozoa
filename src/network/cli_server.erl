@@ -13,9 +13,9 @@ init({C1, C2}) ->
 	{ok, _} = ikb:bldc(C1), 
 	{ok, []}.
 
-terminate(shutdown, S) -> ikb:delc(), ok.
+terminate(shutdown, _) -> ikb:delc(), ok.
 
-handle_call(shutdown, _, S) -> terminate(shutdown, S).
+handle_call(shutdown, _, S) -> terminate(shutdown, S);
 handle_call({qry, Q}, _, S) -> 
 	case re:run(Q, "[a-z0-9]+(%[a-z0-9]*)*") of 
 		{match, _} -> 
@@ -24,8 +24,8 @@ handle_call({qry, Q}, _, S) ->
 				R -> {reply, R, S}
 			end;
 		nomatch -> ok
-	end.
-handle_call({actn, A}, _, S) -> erlang:error("not implemented").
+	end;
+handle_call({actn, A}, _, _) -> erlang:error("not implemented").
 
 server_init(P) ->
 	case gen_tcp:listen(P, [binary]) of  
@@ -36,7 +36,13 @@ server_init(P) ->
 server(LSock) -> 
 	case gen_tcp:accept(LSock) of 
 		{ok, Sock} -> loop(Sock), server(LSock);
-		{error, R} -> server(LSock)
+		{error, _} -> server(LSock)
 	end. 
 
-loop(Sock) -> erlang:error("not implemented").
+loop(Sock) -> 
+	receive 
+		{tcp, Client, Data} ->
+			gen_tcp:send(Client, gen_server:call(?MODULE, binary_to_term(Data))),
+			loop(Sock);
+		{tcp_closed, _} -> ok
+	end.
