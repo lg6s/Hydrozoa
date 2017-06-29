@@ -4,6 +4,10 @@
 -import(ikb, [act/1, delc/0, bldc/3]).
 -export([start/0, start/1, init/1, terminate/2, handle_call/3]).
 
+%%====================================================================
+%% API
+%%====================================================================
+
 start(Args) -> gen_server:start_link(?MODULE, Args, []).
 start() -> start({{lkdbcon, <<"127.0.0.1">>, 1843}, 1844}).
 
@@ -26,6 +30,10 @@ handle_call({qry, Q}, _, S) ->
 		nomatch -> ok
 	end;
 handle_call({actn, A}, _, _) -> erlang:error("not implemented").
+
+%%====================================================================
+%% internal functions
+%%====================================================================
 
 server_init(P) ->
 	case gen_tcp:listen(P, [binary]) of  
