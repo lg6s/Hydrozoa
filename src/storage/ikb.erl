@@ -1,10 +1,14 @@
 -module(ikb).
--export([act/1, act/2, qry/1, qry/2, delc/0, delc/1, bldc/0, bldc/3]).
+-export([act/1, act/2, qry/1, qry/2, delc/0, delc/1, bldc/0, bldc/1]).
 
-bldc() -> bldc(lkdbcon, <<"127.0.0.1">>, 1843).
-bldc(C, H, P) -> 
+%%====================================================================
+%% internal functions
+%%====================================================================
+
+bldc() -> bldc({lkdbcon, <<"127.0.0.1">>, 1843}).
+bldc({C, H, P}) -> 
 	case ets:info(kdbcons) of 
-		undefined -> ets:new(kdbcons, [set, protected, {keypos,1}, {heir,none}, {write_concurrency,false}, {read_concurrency,false}, named_table]), bldc(C, H, P);
+		undefined -> ets:new(kdbcons, [set, protected, {keypos,1}, {heir,none}, {write_concurrency,false}, {read_concurrency,false}, named_table]), bldc({C, H, P});
 		_ -> case q:connect(H, P) of
 					{ok, Pid} -> ets:insert(kdbcons, {C, Pid}), {ok, Pid};
 					{error, E} -> erlang:error(E);
@@ -12,6 +16,7 @@ bldc(C, H, P) ->
 			end
 	end.
 
+%%--------------------------------------------------------------------
 delc(C) -> q:close(ets:lookup_element(kdbcons, C, 2)), ets:delete(kdbcons, C).
 delc() -> 
 	case ets:first(kdbcons) of 
@@ -21,6 +26,7 @@ delc() ->
 			delc()
 	end.
 
+%%--------------------------------------------------------------------
 qry(Q) -> qry(Q, lkdbcon).
 qry(Q, C) -> 
 	case q:execute(ets:lookup_element(kdbcons, C, 2), Q) of
@@ -28,6 +34,7 @@ qry(Q, C) ->
 		R -> R
 	end.
 
+%%--------------------------------------------------------------------
 % I = [defj, mkj, ssj, rmj, gnt, rmt, scs, lhs]
 % pattern qry: [a-z]+(%[a-z0-9]*)*
 act(Q) -> act(Q, lkdbcon).

@@ -8,7 +8,7 @@
 %% API
 %%====================================================================
 
-start(_StartType, _StartArgs) -> erlang:error("not implemented").
+start(_StartType, _StartArgs) -> hydrozoa_sup:start().
 
 %%--------------------------------------------------------------------
 stop(_State) -> ok.

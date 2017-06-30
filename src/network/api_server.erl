@@ -1,8 +1,8 @@
--module(cli_server).
+-module(api_server).
 -behaviour(gen_server).
 
--import(ikb, [act/1, delc/0, bldc/3]).
--export([start/0, start/1, init/1, terminate/2, handle_call/3]).
+-import(ikb, [act/1, delc/0, bldc/1]).
+-export([start/0, start/1, init/1, terminate/2, handle_call/3, server/1, server_init/1, loop/1]).
 
 %%====================================================================
 %% API
@@ -11,14 +11,17 @@
 start(Args) -> gen_server:start_link(?MODULE, Args, []).
 start() -> start({{lkdbcon, <<"127.0.0.1">>, 1843}, 1844}).
 
+%%--------------------------------------------------------------------
 init({C1, C2}) -> 
 	process_flag(trap_exit, true), 
 	{ok, _} = server_init(C2),
 	{ok, _} = ikb:bldc(C1), 
 	{ok, []}.
 
+%%--------------------------------------------------------------------
 terminate(shutdown, _) -> ikb:delc(), ok.
 
+%%--------------------------------------------------------------------
 handle_call(shutdown, _, S) -> terminate(shutdown, S);
 handle_call({qry, Q}, _, S) -> 
 	case re:run(Q, "[a-z0-9]+(%[a-z0-9]*)*") of 
@@ -41,12 +44,14 @@ server_init(P) ->
 		{error, R} -> {error, R} 
 	end.
 
+%%--------------------------------------------------------------------
 server(LSock) -> 
 	case gen_tcp:accept(LSock) of 
 		{ok, Sock} -> loop(Sock), server(LSock);
 		{error, _} -> server(LSock)
 	end. 
 
+%%--------------------------------------------------------------------
 loop(Sock) -> 
 	receive 
 		{tcp, Client, Data} ->
