@@ -28,13 +28,15 @@ defj:{[j]jobs,:((j), 0b) }
 / o = obs = "YYYY-MM-DD'T'HH:MM:SS.mmmmmmmmm": "2007-08-09T12:55:21.734357411" -> 2007.08.09D12:55:21.734357411
 / d = dur -> duration (definition equal to p)
 / l = loc 
-mkj:{[p;d;o;l;j] 
+/ j = jb 
+/ f = boolean if true a job is created when j is unknown
+mkj:{[p;d;o;l;j;f] 
 	p: `long$"N"$p; d: `long$"N"$d; 
 	o: (`long$"P"$o) mod p; 
 	l: `$l; j: `$j; 
 
 	if[p<1; '"per ∈ [1; ∞)"]; if[d<1 or d>1; '"1 < dur < per"]; 
-	if[(all (key jobs) <> j)[`jb]; '"unknown job"]; 
+	if[(all (key jobs) <> j)[`jb]; if[f = 1b; '"unknown job"]; defj[j]]; 
 
 	q: select actn, per, obs-o from tasks where loc = l; 
 	if[count q > 0; 

@@ -1,7 +1,9 @@
 using System;
 using System.IO;
+using System.Net;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace Hydrozoa_CLI
@@ -11,13 +13,27 @@ namespace Hydrozoa_CLI
         public static void Main(string[] args)
         {
         	string BaseDir = @"/home/mxar/Documents/Projects/Hydrozoa/src/clients/Hydrozoa CLI/"; //AppDomain.CurrentDomain.BaseDirectory;
-        	Greetings(string.Concat(BaseDir, "resources/greetings.txt"));
-	    }
+        	AppSettings.BaseDir = BaseDir;
 
-	    internal static void Greetings(string path) {
+        	string path = string.Concat(BaseDir, "resources/greetings.txt");
 	    	if (File.Exists(path)) {
 	    		BasicOutputs.Output(File.ReadLines(path).ToList<string>());
 	    	} else { throw new FileNotFoundException(); }
+
+	    	path = string.Concat(BaseDir, "resources/target_node.json");
+	    	if (File.Exists(path)) {
+	    		JObject config = JObject.Parse(File.ReadAllText(path));
+	    		ConnectionTarget.Host = IPAddress.Parse((string)config["AccessNode"]["Host"]);
+	    		ConnectionTarget.Port = (Int32)config["AccessNode"]["Port"];
+	    	} else { throw new FileNotFoundException(); }
+
+	    	path = string.Concat(BaseDir, "resources/hlp.txt"); 
+	    	if (File.Exists(path)) {
+	    		AppSettings.HelpTXT = File.ReadLines(path).ToList<string>();
+	    	} else { throw new FileNotFoundException(); }
+
+        	Bash B = new Bash((IHydrozoaCmd)(new HydrozoaCmd()));
+        	B.Process();
 	    }
     }
 }
