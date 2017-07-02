@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Net;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
@@ -23,7 +22,7 @@ namespace Hydrozoa_CLI
 	    	path = string.Concat(BaseDir, "resources/target_node.json");
 	    	if (File.Exists(path)) {
 	    		JObject config = JObject.Parse(File.ReadAllText(path));
-	    		ConnectionTarget.Host = IPAddress.Parse((string)config["AccessNode"]["Host"]);
+	    		ConnectionTarget.Host = (string)config["AccessNode"]["Host"];
 	    		ConnectionTarget.Port = (Int32)config["AccessNode"]["Port"];
 	    	} else { throw new FileNotFoundException(); }
 

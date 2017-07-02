@@ -1,11 +1,10 @@
 using System;
-using System.Net;
 using System.Collections.Generic;
 
 namespace Hydrozoa_CLI
 {
 	public static class ConnectionTarget {
-		public static IPAddress Host { get; set; }
+		public static string Host { get; set; }
 		public static Int32 Port { get; set; }
 	}
 

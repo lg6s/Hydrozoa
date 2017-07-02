@@ -39,10 +39,10 @@ namespace Hydrozoa_CLI
 		{
 			throw new NotImplementedException();
 		}
-		
+
 		void IHydrozoaCmd.help()
 		{
-			throw new NotImplementedException();
+			BasicOutputs.Output(AppSettings.HelpTXT);
 		}
 	}
 }

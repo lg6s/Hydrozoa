@@ -5,5 +5,5 @@
  \/\::/  /:;;/__/\:\/:/  /\;:::/  /\:\/:/  /\::;;/__/\:\/:/  /\/\::/  /
    /:/  /\/__/    \::/  /  |:\/__/  \::/  /  \:\__\   \::/  /   /:/  / 
    \/__/           \/__/    \|__|    \/__/    \/__/    \/__/    \/__/  
-Copyright Max Arthur Roßner 1999-2017, documents and files should be 
-treated according to the license CC BY-NC-ND 3.0. Have fun ;)...
+Copyright Max Arthur Roßner Copyright (C), documents and files should be 
+treated according to the license CC BY-NC-ND 3.0
