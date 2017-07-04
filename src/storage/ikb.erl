@@ -38,4 +38,6 @@ qry(Q, C) ->
 % I = [defj, mkj, ssj, rmj, gnt, rmt, scs, lhs]
 % pattern qry: [a-z]+(%[a-z0-9]*)*
 act(Q) -> act(Q, lkdbcon).
-act(Q, C) -> [I|A] = string:split(Q, "%"), qry(list_to_binary(lists:concat([I,"[",string:replace(A, "%", ";", all),"]"])), C).
+act(Q, C) -> 
+	[I|A] = string:split(Q, "%"), 
+	qry(list_to_binary(lists:concat([I,"[",string:replace(A, "%", ";", all),"]"])), C).

@@ -1,7 +1,7 @@
 -module(api_server).
 -behaviour(gen_server).
 
--import(ikb, [act/1, delc/0, bldc/1]).
+-import(ikb, [act/1]).
 -export([start/0, start/1, init/1, terminate/2, handle_call/3, server/1, server_init/1, loop/1]).
 
 %%====================================================================
@@ -15,11 +15,11 @@ start() -> start({{lkdbcon, <<"127.0.0.1">>, 1843}, 1844}).
 init({C1, C2}) -> 
 	process_flag(trap_exit, true), 
 	{ok, _} = server_init(C2),
-	{ok, _} = ikb:bldc(C1), 
+	ok = ikdb:start(C1),
 	{ok, []}.
 
 %%--------------------------------------------------------------------
-terminate(shutdown, _) -> ikb:delc(), ok.
+terminate(shutdown, _) -> ok = ikdb:stop(), ok.
 
 %%--------------------------------------------------------------------
 handle_call(shutdown, _, S) -> terminate(shutdown, S);

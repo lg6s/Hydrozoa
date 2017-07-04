@@ -8,7 +8,9 @@
 %% API
 %%====================================================================
 
-start(_StartType, _StartArgs) -> hydrozoa_sup:start().
+start(_StartType, _StartArgs) ->
+	hydrozoa_sup:start().
 
 %%--------------------------------------------------------------------
-stop(_State) -> ok.
+stop(_State) -> 
+	ok.
