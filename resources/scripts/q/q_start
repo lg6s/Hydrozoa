@@ -1,3 +1,4 @@
 #!/bin/bash
 # start kdb (add "-" before 1843 for multithreading)
-~/q/l32/q "$1" -g 1 -p 1843 -o 2 -q &
+# http://code.kx.com/wiki/Reference/Cmdline
+( ~/q/l32/q "$1" -l -g 1 -p 1843 -o 2 -q & ) && disown
