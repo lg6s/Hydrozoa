@@ -1,0 +1,59 @@
+#!/bin/bash
+[ $(whoami) != "root" ] && (echo "$(basename "$0") setup requires superuser privileges to run !" && exit 1 )
+ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null || (echo  echo "$(basename "$0") setup script requires a network connection to run !" && exit 1) 
+
+cli() {
+	# updates
+	apt-get updates && apt-get -y updates
+
+	# scripts
+	chmod +x ./resources/scripts/**/*
+
+	# dotnet framework
+	./resources/scripts/dotnet/dotnet_install
+
+	# build
+	cd ./src/clients/Hydrozoa\ CLI/
+	dotnet restore && dotnet publish
+
+	# alias
+	echo "alias Hydrozoa='mono $PWD/src/clients/Hydrozoa\ CLI/bin/Debug/netcoreapp1.0/Hydrozoa\ CLI.dll'" >> ~/.bashrc
+}
+
+backend() {
+	apt-get update && apt-get -y upgrade && \
+	apt-get -y install 	unzip \
+						erlang-base \
+						erlang-base \
+						erlang-asn1 \
+ 						erlang-public-key \
+ 						erlang-ssl \
+ 						erlang-inets \
+ 	
+ 	# open up ports
+ 	ufw allow 1843	# kdb
+ 	ufw allow 1844	# erl
+
+ 	# rebar
+	wget https://s3.amazonaws.com/rebar3/rebar3
+	chmod +x ./rebar3 && cp ./rebar3 /bin/.
+
+	# q/kdb
+	cd $PWD/resources/archives/kdb && unzip kdb_arm.zip 
+	rm q/trade.q q/sp.q q/q.q && cp -r q ~/. && cd -
+
+	# scripts
+	chmod +x ./resources/scripts/**/*
+
+	# release
+	rebar3 release
+
+	# alias 
+	echo "alias hydrozoa_backend='$PWD/_build/default/rel/HydrozoaDev/bin/HydrozoaDev start'" >> ~/.bashrc
+}
+
+case $1 in 
+	"cli") cli ;;
+	"backend") backend ;;
+	*) (echo "'cmd") && exit 1 ;;
+esac 
