@@ -1,8 +1,7 @@
 -module(api_server).
 -behaviour(gen_server).
 
--import(ikb, [act/1]).
--export([start/0, start/1, init/1, terminate/2, handle_call/3, server/1, server_init/1, loop/1]).
+-export([start/0, start/1, init/1, terminate/2, handle_call/3, handle_cast/2, server/1, server_init/1, loop/1]).
 
 %%====================================================================
 %% API
@@ -12,14 +11,13 @@ start(Args) -> gen_server:start_link(?MODULE, Args, []).
 start() -> start({{lkdbcon, <<"127.0.0.1">>, 1843}, 1844}).
 
 %%--------------------------------------------------------------------
-init({C1, C2}) -> 
-	process_flag(trap_exit, true), 
+init({C1, C2}) ->
 	{ok, _} = server_init(C2),
 	{ok, _} = ikb:bldc(C1),
 	{ok, []}.
 
 %%--------------------------------------------------------------------
-terminate(shutdown, _) -> ok.
+terminate(_, _) -> ok.
 
 %%--------------------------------------------------------------------
 handle_call(shutdown, _, S) -> terminate(shutdown, S);
@@ -31,8 +29,10 @@ handle_call({qry, Q}, _, S) ->
 				R -> {reply, R, S}
 			end;
 		nomatch -> ok
-	end;
-handle_call({actn, A}, _, _) -> erlang:error("not implemented").
+	end.
+
+%%--------------------------------------------------------------------
+handle_cast(shutdown, S) -> terminate(shutdown, S).
 
 %%====================================================================
 %% internal functions

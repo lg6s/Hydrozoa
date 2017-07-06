@@ -16,5 +16,6 @@ start() ->
 
 init([]) ->
     {ok, {{one_for_one, 1, 5}, [
+    		{ikdb, {ikdb, start, []}, permanent, 999, worker, [ikdb]},
     		{api_server, {api_server, start, []}, permanent, brutal_kill, worker, [api_server]}
     ]}}.
