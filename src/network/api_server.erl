@@ -13,7 +13,7 @@ start() -> start({{lkdbcon, <<"127.0.0.1">>, 1843}, 1844}).
 %%--------------------------------------------------------------------
 init({C1, C2}) ->
 	{ok, _} = server_init(C2),
-	{ok, _} = ikb:bldc(C1),
+	{ok, _} = ikdb:bldc(C1),
 	{ok, []}.
 
 %%--------------------------------------------------------------------
@@ -24,7 +24,7 @@ handle_call(shutdown, _, S) -> terminate(shutdown, S);
 handle_call({qry, Q}, _, S) -> 
 	case re:run(Q, "[a-z0-9]+(%[a-z0-9]*)*") of 
 		{match, _} -> 
-			case ikb:act(Q) of 
+			case ikdb:act(Q) of 
 				{error, R} -> {reply, {error, R}, S};
 				R -> {reply, R, S}
 			end;

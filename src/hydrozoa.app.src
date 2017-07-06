@@ -1,7 +1,7 @@
 {application, hydrozoa, [
     {description, "soft-realtime water computer (https://github.com/MxAR/Hydrozoa)"},
     {vsn, "git"},
-    {modules, [hydrozoa, hydrozoa_sup, ikb, ikdb, api_server]},
+    {modules, [hydrozoa, hydrozoa_sup, ikdb, api_server]},
     {registered, []},
     {applications, [kernel, stdlib, sasl, q]},
     {maintainers, ["Max Rossner"]},
