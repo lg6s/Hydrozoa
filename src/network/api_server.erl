@@ -15,11 +15,11 @@ start() -> start({{lkdbcon, <<"127.0.0.1">>, 1843}, 1844}).
 init({C1, C2}) -> 
 	process_flag(trap_exit, true), 
 	{ok, _} = server_init(C2),
-	ok = ikdb:start(C1),
+	{ok, _} = ikb:bldc(C1),
 	{ok, []}.
 
 %%--------------------------------------------------------------------
-terminate(shutdown, _) -> ok = ikdb:stop(), ok.
+terminate(shutdown, _) -> ok.
 
 %%--------------------------------------------------------------------
 handle_call(shutdown, _, S) -> terminate(shutdown, S);

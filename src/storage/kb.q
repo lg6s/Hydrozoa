@@ -71,7 +71,7 @@ rmt:{[t]t: `$t; delete from tasks where tiseq = t}
 
 / scs -> save current state
 scs:{
-		if[not "B"$ last (system "test ! -d ~/q/hydrozoa_kb; echo $?"); system("mkdir ~/q/hydrozoa_kb")]
+		if[not "B"$ last (system "test ! -d ~/q/hydrozoa_kb; echo $?"); system "mkdir ~/q/hydrozoa_kb" ]
 		d: "" sv (system("echo $HOME"), "/q/hydrozoa_kb/");
 
 		system("" sv ("touch "; d; "ps"));

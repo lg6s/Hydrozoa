@@ -11,8 +11,9 @@ bldc({C, H, P}) ->
 		undefined -> ets:new(kdbcons, [set, protected, {keypos,1}, {heir,none}, {write_concurrency,false}, {read_concurrency,false}, named_table]), bldc({C, H, P});
 		_ -> case q:connect(H, P) of
 					{ok, Pid} -> 	
-						error_logger:info_report(["A new db-connection was created  ~p~n", {C, H, P}]),
-						ets:insert(kdbcons, {C, Pid}), {ok, Pid};
+						error_logger:info_report(["A new db-connection was created", {C, H, P}]),
+						ets:insert(kdbcons, {C, Pid}), 
+						act("lhs", C), {ok, Pid};
 					{error, E} -> erlang:error(E);
 					_ -> erlang:error("unknown error")
 			end
@@ -20,8 +21,8 @@ bldc({C, H, P}) ->
 
 %%--------------------------------------------------------------------
 delc(C) -> 
-	q:close(ets:lookup_element(kdbcons, C, 2)), ets:delete(kdbcons, C),
-	error_logger:info_report(["A db-connection was closed ~p~n", C]).
+	act("scs", C), q:close(ets:lookup_element(kdbcons, C, 2)), 
+	ets:delete(kdbcons, C), error_logger:info_report(["A db-connection was closed ~p~n", C]).
 delc() -> 
 	case ets:first(kdbcons) of 
 		'$end_of_table' -> ets:delete(kdbcons);

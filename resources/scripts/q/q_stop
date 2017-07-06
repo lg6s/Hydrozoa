@@ -1,2 +1,2 @@
 #!/bin/bash
-kill $(ps ax | grep "$1/q/l32/q "$2" -g 1 -p 1843 -o 2 -q" | head -1 | awk '{print $1;}')
+kill $(ps ax | grep /q/l32/q | head -1 | awk '{print $1;}')
